@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Dense fitness</string>
+    <string name="date">Date</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string-array name="tabs">
+        <item>Workouts</item>
+        <item>Exercises</item>
+        <item>Body mass</item>
+    </string-array>
+    <string name="title_activity_body_mass_history">BodyMassHistory</string>
+    <string name="title_activity_workout">Workout</string>
+</resources>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.fitness.dense.densefitness" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:uiOptions="splitActionBarWhenNarrow" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <provider
+            android:name=".database.contentProviderWorkout.WorkoutContentProvider"
+            android:authorities="com.fitness.dense.densefitness.database.contentProviderWorkout" >
+        </provider>
+
+        <provider
+            android:name=".database.contentProviderBodyMass.BodyMassContentProvider"
+            android:authorities="com.fitness.dense.densefitness.database.contentProviderBodyMass" >
+        </provider>
+
+        <activity
+            android:name=".bodymass.BodyMassHistory"
+            android:label="@string/title_activity_body_mass_history" >
+        </activity>
+        <activity
+            android:name=".Workout"
+            android:label="@string/title_activity_workout" >
+        </activity>
+    </application>
+
+</manifest>
