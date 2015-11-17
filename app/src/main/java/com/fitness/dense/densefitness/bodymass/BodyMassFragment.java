@@ -70,21 +70,14 @@ public class BodyMassFragment extends DialogFragment implements ActionMode.Callb
                              ViewGroup container, Bundle savedInstanceState) {
         // The last two arguments ensure LayoutParams are inflated
         // properly.
-        View rootView = inflater.inflate(
-                R.layout.body_mass_fragment, container, false);
-        /*Bundle args = getArguments();
-        ((TextView) rootView.findViewById(android.R.id.text1)).setText(
-                Integer.toString(args.getInt(WorkoutsFragment.ARG_OBJECT)));*/
+        View rootView = inflater.inflate(R.layout.body_mass_fragment, container, false);
         context = inflater.getContext();
 
         bodyMassDatabaseHelper = new BodyMassDatabaseHelper(context);
         tableLayout = (TableLayout)rootView.findViewById(R.id.tlBodyMassHistory);
 
         UpdateTable();
-
         SetTextBoxes(rootView);
-
-        //Bundle args = getArguments();
 
         // check from the saved Instance
         bodyMassUri = (savedInstanceState == null) ? null : (Uri) savedInstanceState
@@ -104,20 +97,7 @@ public class BodyMassFragment extends DialogFragment implements ActionMode.Callb
         });
 
         setHasOptionsMenu(true);
-
         checkedItems = new ArrayList<>();
-
-        //BodyMassTable.TABLE_BODY_MASS
-        // Defines a string to contain the selection clause
-        String mSelectionClause = null;
-
-// Initializes an array to contain selection arguments
-        String[] mSelectionArgs = {""};
-
-        //bodyMassUri = BodyMassContentProvider.CONTENT_URI;
-        //int numberOfRows = count(bodyMassUri, mSelectionClause, mSelectionArgs);
-
-        //checkedItems = new int[cursor.getCount()];
 
         return rootView;
     }
@@ -173,14 +153,8 @@ public class BodyMassFragment extends DialogFragment implements ActionMode.Callb
                 if (isInputValid) {
                     ContentValues values = setContentValues(date, weight, fat, muscleMass);
 
-                    //if (bodyMassUri == null) {
-                        bodyMassUri = getContext().getContentResolver().insert(BodyMassContentProvider.CONTENT_URI, values);
-                    //} else {
-                    //    getContext().getContentResolver().update(bodyMassUri, values, null, null);
-                    //}
-
+                    bodyMassUri = getContext().getContentResolver().insert(BodyMassContentProvider.CONTENT_URI, values);
                     tableLayout.removeAllViews();
-
                     UpdateTable();
 
                     Toast.makeText(context, "Added successfully", Toast.LENGTH_SHORT).show();
