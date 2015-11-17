@@ -10,7 +10,7 @@ public class WorkoutTable {
 
     // Database table
     public static final String TABLE_WORKOUT = "workout";
-    public static final String COLUMN_ID = "_id";
+    public static final String COLUMN_ID = "workout_id";
     public static final String COLUMN_WORKOUT_NAME = "workout_name";
     public static final String COLUMN_MUSCLE_GROUPS = "muscle_groups";
 

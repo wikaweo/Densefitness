@@ -10,7 +10,7 @@ public class BodyMassTable {
 
     // Database table
     public static final String TABLE_BODY_MASS = "body_mass";
-    public static final String COLUMN_ID = "_id";
+    public static final String COLUMN_ID = "body_mass_id";
     public static final String COLUMN_DATE = "date";
     public static final String COLUMN_WEIGHT = "weight";
     public static final String COLUMN_FAT = "fat";

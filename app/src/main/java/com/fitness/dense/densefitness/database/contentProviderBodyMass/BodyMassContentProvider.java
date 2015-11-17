@@ -124,6 +124,11 @@ public class BodyMassContentProvider extends ContentProvider {
                     rowsDeleted = sqlDB.delete(BodyMassTable.TABLE_BODY_MASS,
                             BodyMassTable.COLUMN_ID + "=" + id, null);
                 }
+                else if(selection.contains(","))
+                {
+                    rowsDeleted = sqlDB.delete(BodyMassTable.TABLE_BODY_MASS,
+                            BodyMassTable.COLUMN_ID + " in " + "(" + selection + ")", null);
+                }
                 else
                 {
                     rowsDeleted = sqlDB.delete(BodyMassTable.TABLE_BODY_MASS,

@@ -2,6 +2,7 @@ package com.fitness.dense.densefitness.bodymass;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -14,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentManager;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.view.ActionMode;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -36,7 +38,9 @@ import com.fitness.dense.densefitness.database.BodyMassTable;
 import com.fitness.dense.densefitness.database.contentProviderBodyMass.BodyMassContentProvider;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by Fredrik on 2015-09-20.
@@ -55,10 +59,11 @@ public class BodyMassFragment extends DialogFragment implements ActionMode.Callb
     private Context context;
     private Uri bodyMassUri;
 
+    private List<Integer> checkedItems = null;
     private TableLayout tableLayout;
     private BodyMassDatabaseHelper bodyMassDatabaseHelper;
-
-    private int[] checkedItems;
+    private BodyMassDatabaseHelper bodyMassDatabaseHelperDel;
+    //private int[] checkedItems;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -99,6 +104,8 @@ public class BodyMassFragment extends DialogFragment implements ActionMode.Callb
         });
 
         setHasOptionsMenu(true);
+
+        checkedItems = new ArrayList<>();
 
         //BodyMassTable.TABLE_BODY_MASS
         // Defines a string to contain the selection clause
@@ -149,6 +156,7 @@ public class BodyMassFragment extends DialogFragment implements ActionMode.Callb
             db.endTransaction();
             db.close();
         }
+        bodyMassDatabaseHelper.close();
     }
 
     private void onSaveClick() {
@@ -165,11 +173,11 @@ public class BodyMassFragment extends DialogFragment implements ActionMode.Callb
                 if (isInputValid) {
                     ContentValues values = setContentValues(date, weight, fat, muscleMass);
 
-                    if (bodyMassUri == null) {
+                    //if (bodyMassUri == null) {
                         bodyMassUri = getContext().getContentResolver().insert(BodyMassContentProvider.CONTENT_URI, values);
-                    } else {
-                        getContext().getContentResolver().update(bodyMassUri, values, null, null);
-                    }
+                    //} else {
+                    //    getContext().getContentResolver().update(bodyMassUri, values, null, null);
+                    //}
 
                     tableLayout.removeAllViews();
 
@@ -207,13 +215,14 @@ public class BodyMassFragment extends DialogFragment implements ActionMode.Callb
             while (cursor.moveToNext())
             {
                 // Read columns data
+                int id = cursor.getInt(cursor.getColumnIndex("body_mass_id"));
                 String date = cursor.getString(cursor.getColumnIndex("date"));
                 String weight = cursor.getString(cursor.getColumnIndex("weight"));
                 String fat = cursor.getString(cursor.getColumnIndex("fat"));
                 String muscleMass = cursor.getString(cursor.getColumnIndex("muscle_mass"));
 
                 TableRow row = addTableRows(date, weight, fat, muscleMass);
-                row.setTag(counter);
+                row.setTag(id);
                 tableLayout.addView(row);
                 counter++;
             }
@@ -234,9 +243,19 @@ public class BodyMassFragment extends DialogFragment implements ActionMode.Callb
             public void onClick(View view) {
                 CheckBox clickedCheckBox = (CheckBox) view;
                 if (clickedCheckBox.isChecked()) {
-                    TableRow row = (TableRow)view.getParent();
+                    TableRow row = (TableRow) view.getParent();
                     int rowId = (int) row.getTag();
+                    checkedItems.add(rowId);
                     getActivity().startActionMode(BodyMassFragment.this);
+                } else {
+                    TableRow row = (TableRow) view.getParent();
+                    int rowId = (int) row.getTag();
+
+                    for (int i = 0; i < checkedItems.size(); i++) {
+                        if (checkedItems.get(i) == rowId) {
+                            checkedItems.remove(i);
+                        }
+                    }
                 }
 
             }
@@ -337,7 +356,43 @@ public class BodyMassFragment extends DialogFragment implements ActionMode.Callb
 
     @Override
     public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-        Toast.makeText(getActivity(), "CAB for Radiogroup!",
+        if(checkedItems.size() != 0){
+            String columnidStrings = "";
+            String[] columnIds = new String[checkedItems.size()];
+            for (int i = 0; i < checkedItems.size(); i++) {
+                String columnId = String.valueOf(checkedItems.get(i));
+
+                if(i == 0)
+                    columnidStrings += columnId;
+                else
+                    columnidStrings += "," + columnId;
+            }
+
+            try
+            {
+                if(columnidStrings.length() == 1) {
+                    Uri uri = Uri.parse(BodyMassContentProvider.CONTENT_URI + "/"+ columnidStrings);
+
+                    ContentResolver contentResolver = getActivity().getContentResolver();
+                    contentResolver.delete(uri, null, null);
+                }
+                else {
+                    Uri uri = Uri.parse(BodyMassContentProvider.CONTENT_URI + "/" + "2");
+
+                    ContentResolver contentResolver = getActivity().getContentResolver();
+                    contentResolver.delete(uri, columnidStrings, null);
+                }
+            }
+            catch (SQLiteException e)
+            {
+                e.printStackTrace();
+            }
+
+            tableLayout.removeAllViews();
+            UpdateTable();
+
+        }
+        Toast.makeText(getActivity(), "successfully removed items",
                 Toast.LENGTH_SHORT).show();
         return false;
     }
