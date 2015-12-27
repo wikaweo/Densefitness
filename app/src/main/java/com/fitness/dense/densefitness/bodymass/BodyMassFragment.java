@@ -55,15 +55,13 @@ public class BodyMassFragment extends DialogFragment implements ActionMode.Callb
     private Button buttonSave;
 
     private ActionMode.Callback mLastCallback;
-    ActionMode actionMode;
+    ActionMode actionMode = null;
     private Context context;
     private Uri bodyMassUri;
 
     private List<Integer> checkedItems = null;
     private TableLayout tableLayout;
     private BodyMassDatabaseHelper bodyMassDatabaseHelper;
-    private BodyMassDatabaseHelper bodyMassDatabaseHelperDel;
-    //private int[] checkedItems;
 
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -100,20 +98,6 @@ public class BodyMassFragment extends DialogFragment implements ActionMode.Callb
         checkedItems = new ArrayList<>();
 
         return rootView;
-    }
-
-    public int count(Uri uri,String selection,String[] selectionArgs) {
-        Cursor cursor = getActivity().getContentResolver().query(uri, new String[]{"count(*)"},
-                selection, selectionArgs, null);
-        if (cursor.getCount() == 0) {
-            cursor.close();
-            return 0;
-        } else {
-            cursor.moveToFirst();
-            int result = cursor.getInt(0);
-            cursor.close();
-            return result;
-        }
     }
 
     private void UpdateTable() {
@@ -220,7 +204,7 @@ public class BodyMassFragment extends DialogFragment implements ActionMode.Callb
                     TableRow row = (TableRow) view.getParent();
                     int rowId = (int) row.getTag();
                     checkedItems.add(rowId);
-                    getActivity().startActionMode(BodyMassFragment.this);
+                    actionMode = getActivity().startActionMode(BodyMassFragment.this);
                 } else {
                     TableRow row = (TableRow) view.getParent();
                     int rowId = (int) row.getTag();
@@ -229,6 +213,10 @@ public class BodyMassFragment extends DialogFragment implements ActionMode.Callb
                         if (checkedItems.get(i) == rowId) {
                             checkedItems.remove(i);
                         }
+                    }
+                    if (checkedItems.isEmpty()) {
+                        if(actionMode != null)
+                            actionMode.finish();
                     }
                 }
 
@@ -301,7 +289,7 @@ public class BodyMassFragment extends DialogFragment implements ActionMode.Callb
     }
 
     public boolean validateInput(String date, String weight, String fat, String muscleMass){
-        if((date.isEmpty() && date != null) || (weight.isEmpty() && weight != null) || (fat.isEmpty() && fat != null) || (muscleMass.isEmpty() && muscleMass != null))
+        if(date.isEmpty() || weight.isEmpty() || fat.isEmpty() || muscleMass.isEmpty())
         {
             showErrorDialog();
             return false;
@@ -344,7 +332,7 @@ public class BodyMassFragment extends DialogFragment implements ActionMode.Callb
 
             try
             {
-                if(columnidStrings.length() == 1) {
+                if(!columnidStrings.contains(",")) {
                     Uri uri = Uri.parse(BodyMassContentProvider.CONTENT_URI + "/"+ columnidStrings);
 
                     ContentResolver contentResolver = getActivity().getContentResolver();
@@ -368,12 +356,13 @@ public class BodyMassFragment extends DialogFragment implements ActionMode.Callb
         }
         Toast.makeText(getActivity(), "successfully removed items",
                 Toast.LENGTH_SHORT).show();
+
+        mode.finish();
         return false;
     }
 
     @Override
     public void onDestroyActionMode(ActionMode mode) {
-
     }
 
     public static class DatePickerFragment extends DialogFragment

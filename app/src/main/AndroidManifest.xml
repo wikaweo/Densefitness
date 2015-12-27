@@ -28,10 +28,11 @@
             android:authorities="com.fitness.dense.densefitness.database.contentProviderBodyMass" >
         </provider>
 
-        <activity
-            android:name=".bodymass.BodyMassHistory"
-            android:label="@string/title_activity_body_mass_history" >
-        </activity>
+        <provider
+            android:name=".database.contentProviderMuscle.MuscleContentProvider"
+            android:authorities="com.fitness.dense.densefitness.database.contentProviderMuscle" >
+        </provider>
+
         <activity
             android:name=".Workout"
             android:label="@string/title_activity_workout" >

@@ -11,7 +11,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.fitness.dense.densefitness.bodymass.BodyMassFragment;
-import com.fitness.dense.densefitness.exercises.ExercisesFragment;
+import com.fitness.dense.densefitness.exercises.MusclesFragment;
 import com.fitness.dense.densefitness.tabs.SlidingTabLayout;
 import com.fitness.dense.densefitness.workouts.WorkoutsFragment;
 
@@ -80,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
                     fragment.setArguments(args);*/
                     return fragment;
                 case 1:
-                    return new ExercisesFragment();
+                    return new MusclesFragment();
                 case 2:
                     return new BodyMassFragment();
                 default:
