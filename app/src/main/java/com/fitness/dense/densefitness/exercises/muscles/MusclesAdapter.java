@@ -1,4 +1,4 @@
-package com.fitness.dense.densefitness.exercises;
+package com.fitness.dense.densefitness.exercises.muscles;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

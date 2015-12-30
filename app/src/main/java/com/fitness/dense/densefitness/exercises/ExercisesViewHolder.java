@@ -11,21 +11,21 @@ import com.fitness.dense.densefitness.R;
 import com.fitness.dense.densefitness.workouts.WorkoutsListManager.ItemTouchHelper.ItemTouchHelperViewHolder;
 
 /**
- * Created by Fredrik on 2015-11-22.
+ * Created by Fredrik on 2015-12-30.
  */
-public class MusclesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener, ItemTouchHelperViewHolder {
+public class ExercisesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener, ItemTouchHelperViewHolder {
 
     private Context context;
 
-    public final TextView muscleTitle;
-    public final ImageView muscleImage;
+    public final TextView exerciseTitle;
+    public final ImageView exerciseImage;
 
-    public MusclesViewHolder(View itemView, Context context) {
+    public ExercisesViewHolder(View itemView, Context context) {
         super(itemView);
         this.context = context;
-        muscleTitle = (TextView) itemView.findViewById(R.id.exerciseText);
-        muscleImage = (ImageView) itemView.findViewById(R.id.exerciseImg);
-        muscleTitle.setOnClickListener(this);
+        exerciseTitle = (TextView) itemView.findViewById(R.id.exerciseText);
+        exerciseImage = (ImageView) itemView.findViewById(R.id.exerciseImg);
+        exerciseTitle.setOnClickListener(this);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class MusclesViewHolder extends RecyclerView.ViewHolder implements View.O
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(muscleTitle.getContext(), " Item clicked at " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(exerciseTitle.getContext(), " Item clicked at " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
     }
 
     @Override

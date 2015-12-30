@@ -1,4 +1,4 @@
-package com.fitness.dense.densefitness.exercises;
+package com.fitness.dense.densefitness.exercises.muscles;
 
 /**
  * Created by Fredrik on 2015-11-22.

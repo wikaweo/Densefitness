@@ -2,8 +2,7 @@ package com.fitness.dense.densefitness;
 
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,11 +10,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.fitness.dense.densefitness.bodymass.BodyMassFragment;
-import com.fitness.dense.densefitness.exercises.MusclesFragment;
+import com.fitness.dense.densefitness.exercises.ExercisesFragment;
+import com.fitness.dense.densefitness.exercises.muscles.MusclesFragment;
 import com.fitness.dense.densefitness.tabs.SlidingTabLayout;
 import com.fitness.dense.densefitness.workouts.WorkoutsFragment;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.List;
+import java.util.Vector;
+
+public class MainActivity extends AppCompatActivity{
 
     static final int NUM_ITEMS = 3;
 
@@ -28,8 +31,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        List<Fragment> fragments = new Vector<Fragment>();
+
+        //for each fragment you want to add to the pager
+        fragments.add(Fragment.instantiate(this, WorkoutsFragment.class.getName()));
+        fragments.add(Fragment.instantiate(this, MusclesFragment.class.getName()));
+        fragments.add(Fragment.instantiate(this, BodyMassFragment.class.getName()));
+
         mPager = (ViewPager) findViewById(R.id.pager);
-        mPager.setAdapter(new PagerAdapterControl(getSupportFragmentManager()));
+        mPager.setAdapter(new PagerAdapterControl(this, getSupportFragmentManager(), fragments));
         mTabs = (SlidingTabLayout) findViewById(R.id.tabs);
 
         //mTabs.setBackgroundColor(getResources().getColor(R.color.ColorPrimary));
@@ -60,46 +70,32 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public class PagerAdapterControl extends FragmentStatePagerAdapter {
+    public void switchContent(int position) {
+        Bundle args = new Bundle();
+        args.putInt("position", position);
 
-        String[] tabs;
+        ExercisesFragment exercisesFragment = new ExercisesFragment();
+        exercisesFragment.setArguments(args);
 
-        public PagerAdapterControl(FragmentManager fm) {
-            super(fm);
-            tabs = getResources().getStringArray(R.array.tabs);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentLayout, exercisesFragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+
+        /*try
+        {
+            List<Fragment> fragments = new Vector<Fragment>();
+
+            fragments.add(Fragment.instantiate(this, ExercisesFragment.class.getName()));
+
+            //mPager = (ViewPager) findViewById(R.id.pager);
+            mPager.setAdapter(new PagerAdapterControl(this, getSupportFragmentManager(), fragments));
         }
+        catch (Exception ex)
+        {
 
-        @Override
-        public Fragment getItem(int position) {
-            switch (position){
-                case 0:
-                    WorkoutsFragment fragment = new WorkoutsFragment();
-                    /*Bundle args = new Bundle();
-                    // Our object is just an integer
-                    args.putInt(com.fitness.dense.densefitness.fragments.WorkoutsFragment.ARG_OBJECT, position + 1);
-                    fragment.setArguments(args);*/
-                    return fragment;
-                case 1:
-                    return new MusclesFragment();
-                case 2:
-                    return new BodyMassFragment();
-                default:
-                    return null;
-            }
-        }
-
-        @Override
-        public int getCount() {
-            return tabs.length;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return tabs[position];
-            //return "OBJECT " + (position + 1);
-        }
+        }*/
     }
-
 
 }
 

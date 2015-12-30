@@ -1,4 +1,4 @@
-package com.fitness.dense.densefitness.database.contentProviderMuscle;
+package com.fitness.dense.densefitness.database.contentProviderExercise;
 
 import android.content.ContentProvider;
 import android.content.ContentResolver;
@@ -10,28 +10,27 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
 
-import com.fitness.dense.densefitness.database.MuscleDatabaseHelper;
+import com.fitness.dense.densefitness.database.ExerciseDatabaseHelper;
+import com.fitness.dense.densefitness.database.ExerciseTable;
 import com.fitness.dense.densefitness.database.MuscleTable;
-import com.fitness.dense.densefitness.database.WorkoutTable;
 
 import java.util.Arrays;
 import java.util.HashSet;
 
 /**
- * Created by Fredrik on 2015-12-26.
+ * Created by Fredrik on 2015-12-30.
  */
-public class MuscleContentProvider extends ContentProvider {
+public class ExerciseContentProvider extends ContentProvider {
 
-    // database
-    private MuscleDatabaseHelper database;
+    private ExerciseDatabaseHelper database;
 
     // used for the UriMacher
-    private static final int MUSCLES = 10;
-    private static final int MUSCLES_ID = 20;
+    private static final int EXERCISES = 10;
+    private static final int EXERCISES_ID = 20;
 
-    private static final String AUTHORITY = "com.fitness.dense.densefitness.database.contentProviderMuscle";
+    private static final String AUTHORITY = "com.fitness.dense.densefitness.database.contentProviderExercise";
 
-    private static final String BASE_PATH = "muscles";
+    private static final String BASE_PATH = "exercises";
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY
             + "/" + BASE_PATH);
 
@@ -42,13 +41,13 @@ public class MuscleContentProvider extends ContentProvider {
 
     private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     static {
-        sURIMatcher.addURI(AUTHORITY, BASE_PATH, MUSCLES);
-        sURIMatcher.addURI(AUTHORITY, BASE_PATH + "/#", MUSCLES_ID);
+        sURIMatcher.addURI(AUTHORITY, BASE_PATH, EXERCISES);
+        sURIMatcher.addURI(AUTHORITY, BASE_PATH + "/#", EXERCISES_ID);
     }
 
     @Override
     public boolean onCreate() {
-        database = new MuscleDatabaseHelper(getContext());
+        database = new ExerciseDatabaseHelper(getContext());
         return false;
     }
 
@@ -61,15 +60,15 @@ public class MuscleContentProvider extends ContentProvider {
         checkColumns(projection);
 
         // Set the table
-        queryBuilder.setTables(MuscleTable.TABLE_MUSCLE);
+        queryBuilder.setTables(ExerciseTable.TABLE_EXERCISE);
 
         int uriType = sURIMatcher.match(uri);
         switch (uriType) {
-            case MUSCLES:
+            case EXERCISES:
                 break;
-            case MUSCLES_ID:
+            case EXERCISES_ID:
                 // adding the ID to the original query
-                queryBuilder.appendWhere(MuscleTable.COLUMN_ID + "="
+                queryBuilder.appendWhere(ExerciseTable.COLUMN_ID + "="
                         + uri.getLastPathSegment());
                 break;
             default:
@@ -85,11 +84,8 @@ public class MuscleContentProvider extends ContentProvider {
         return cursor;
     }
 
-
     @Override
-    public String getType(Uri uri) {
-        return null;
-    }
+    public String getType(Uri uri) { return null; }
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
@@ -98,8 +94,8 @@ public class MuscleContentProvider extends ContentProvider {
         int rowsDeleted = 0;
         long id = 0;
         switch (uriType) {
-            case MUSCLES:
-                id = sqlDB.insert(MuscleTable.TABLE_MUSCLE, null, values);
+            case EXERCISES:
+                id = sqlDB.insert(ExerciseTable.TABLE_EXERCISE, null, values);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);
@@ -114,21 +110,21 @@ public class MuscleContentProvider extends ContentProvider {
         SQLiteDatabase sqlDB = database.getWritableDatabase();
         int rowsDeleted = 0;
         switch (uriType) {
-            case MUSCLES:
-                rowsDeleted = sqlDB.delete(MuscleTable.TABLE_MUSCLE, selection,
+            case EXERCISES:
+                rowsDeleted = sqlDB.delete(ExerciseTable.TABLE_EXERCISE, selection,
                         selectionArgs);
                 break;
-            case MUSCLES_ID:
+            case EXERCISES_ID:
                 String id = uri.getLastPathSegment();
                 if (TextUtils.isEmpty(selection))
                 {
-                    rowsDeleted = sqlDB.delete(MuscleTable.TABLE_MUSCLE,
-                            MuscleTable.COLUMN_ID + "=" + id, null);
+                    rowsDeleted = sqlDB.delete(ExerciseTable.TABLE_EXERCISE,
+                            ExerciseTable.COLUMN_ID + "=" + id, null);
                 }
                 else
                 {
-                    rowsDeleted = sqlDB.delete(MuscleTable.TABLE_MUSCLE,
-                            MuscleTable.COLUMN_ID + "=" + id
+                    rowsDeleted = sqlDB.delete(ExerciseTable.TABLE_EXERCISE,
+                            ExerciseTable.COLUMN_ID + "=" + id
                                     + " and " + selection, selectionArgs);
                 }
                 break;
@@ -145,25 +141,25 @@ public class MuscleContentProvider extends ContentProvider {
         SQLiteDatabase sqlDB = database.getWritableDatabase();
         int rowsUpdated = 0;
         switch (uriType) {
-            case MUSCLES:
-                rowsUpdated = sqlDB.update(MuscleTable.TABLE_MUSCLE,
+            case EXERCISES:
+                rowsUpdated = sqlDB.update(ExerciseTable.TABLE_EXERCISE,
                         values,
                         selection,
                         selectionArgs);
                 break;
-            case MUSCLES_ID:
+            case EXERCISES_ID:
                 String id = uri.getLastPathSegment();
                 if (TextUtils.isEmpty(selection))
                 {
-                    rowsUpdated = sqlDB.update(MuscleTable.TABLE_MUSCLE,
+                    rowsUpdated = sqlDB.update(ExerciseTable.TABLE_EXERCISE,
                             values,
-                            MuscleTable.COLUMN_ID + "=" + id, null);
+                            ExerciseTable.COLUMN_ID + "=" + id, null);
                 }
                 else
                 {
-                    rowsUpdated = sqlDB.update(MuscleTable.TABLE_MUSCLE,
+                    rowsUpdated = sqlDB.update(ExerciseTable.TABLE_EXERCISE,
                             values,
-                            MuscleTable.COLUMN_ID + "=" + id
+                            ExerciseTable.COLUMN_ID + "=" + id
                                     + " and "
                                     + selection,
                             selectionArgs);
@@ -176,9 +172,9 @@ public class MuscleContentProvider extends ContentProvider {
         return rowsUpdated;
     }
 
-
     private void checkColumns(String[] projection) {
-        String[] available = { MuscleTable.COLUMN_MUSCLE_NAME, MuscleTable.COLUMN_ID };
+        String[] available = { ExerciseTable.COLUMN_EXERCISE_NEW_WORKOUT, ExerciseTable.COLUMN_EXERCISE_NAME,
+                ExerciseTable.COLUMN_FK_EXERCISE_MUSCLE, ExerciseTable.COLUMN_ID };
         if (projection != null) {
             HashSet<String> requestedColumns = new HashSet<String>(Arrays.asList(projection));
             HashSet<String> availableColumns = new HashSet<String>(Arrays.asList(available));

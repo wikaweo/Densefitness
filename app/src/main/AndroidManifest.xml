@@ -33,6 +33,11 @@
             android:authorities="com.fitness.dense.densefitness.database.contentProviderMuscle" >
         </provider>
 
+        <provider
+            android:name=".database.contentProviderExercise.ExerciseContentProvider"
+            android:authorities="com.fitness.dense.densefitness.database.contentProviderExercise" >
+        </provider>
+
         <activity
             android:name=".Workout"
             android:label="@string/title_activity_workout" >
