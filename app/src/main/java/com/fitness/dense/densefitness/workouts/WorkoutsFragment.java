@@ -18,8 +18,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.fitness.dense.densefitness.Interfaces.NewWorkoutListener;
 import com.fitness.dense.densefitness.MainActivity;
 import com.fitness.dense.densefitness.workouts.WorkoutsListManager.Information;
 import com.fitness.dense.densefitness.R;
@@ -29,13 +31,16 @@ import com.fitness.dense.densefitness.workouts.WorkoutsListManager.WorkoutTouchL
 import com.fitness.dense.densefitness.workouts.WorkoutsListManager.WorkoutsAdapter;
 import com.fitness.dense.densefitness.database.WorkoutTable;
 import com.fitness.dense.densefitness.database.contentProviderWorkout.WorkoutContentProvider;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
+import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 import java.util.ArrayList;
 
 /**
  * Created by Fredrik on 2015-09-17.
  */
-public class WorkoutsFragment extends Fragment implements OnStartDragListener {
+public class WorkoutsFragment extends Fragment implements OnStartDragListener, NewWorkoutListener {
     public static final String ARG_OBJECT = "object";
 
     private static final String TAG = MainActivity.class.getSimpleName();
@@ -93,27 +98,27 @@ public class WorkoutsFragment extends Fragment implements OnStartDragListener {
         btnAdd = (Button)rootView.findViewById(R.id.btnAdd);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
-             @Override
-             public void onClick(View v) {
-                 String workoutName = workoutNameText.getText().toString();
+                                      @Override
+                                      public void onClick(View v) {
+                                          String workoutName = workoutNameText.getText().toString();
 
-                 if(!workoutName.equals("")){
-                     if(adapter.getItemCount() > 1){
-                         Uri uri = WorkoutContentProvider.CONTENT_URI;
-                         ContentValues values = new ContentValues();
-                         values.put(WorkoutTable.COLUMN_WORKOUT_NAME, workoutName);
-                         getActivity().getContentResolver().insert(uri, values);
-                         Toast.makeText(context, workoutName + " added successfully", Toast.LENGTH_SHORT).show();
-                         workoutNameText.setText("");
+                                          if (!workoutName.equals("")) {
+                                              if (adapter.getItemCount() > 1) {
+                                                  Uri uri = WorkoutContentProvider.CONTENT_URI;
+                                                  ContentValues values = new ContentValues();
+                                                  values.put(WorkoutTable.COLUMN_WORKOUT_NAME, workoutName);
+                                                  getActivity().getContentResolver().insert(uri, values);
+                                                  Toast.makeText(context, workoutName + " added successfully", Toast.LENGTH_SHORT).show();
+                                                  workoutNameText.setText("");
 
-                         // Finns bättre lösning troligtvis än att ladda om på detta sättet.
-                         //adapter = new WorkoutsAdapter(getActivity(), getAllWorkouts(), this);
-                         //mRecyclerView.setAdapter(adapter);
-                         //mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                     }
-                 }
-             }
-           }
+                                                  // Finns bättre lösning troligtvis än att ladda om på detta sättet.
+                                                  //adapter = new WorkoutsAdapter(getActivity(), getAllWorkouts(), this);
+                                                  //mRecyclerView.setAdapter(adapter);
+                                                  //mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                                              }
+                                          }
+                                      }
+                                  }
         );
 
         return rootView;
@@ -161,6 +166,11 @@ public class WorkoutsFragment extends Fragment implements OnStartDragListener {
             actionMode.setTitle(String.valueOf(count));
             actionMode.invalidate();
         }
+    }
+
+    @Override
+    public void onNewWorkoutClick() {
+        Toast.makeText(getActivity(), "new workout", Toast.LENGTH_SHORT).show();
     }
 
     public class ActionModeCallback implements ActionMode.Callback{

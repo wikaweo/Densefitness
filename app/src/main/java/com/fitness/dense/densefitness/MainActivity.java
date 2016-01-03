@@ -8,23 +8,35 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.fitness.dense.densefitness.Interfaces.NewWorkoutListener;
 import com.fitness.dense.densefitness.bodymass.BodyMassFragment;
-import com.fitness.dense.densefitness.exercises.ExercisesFragment;
-import com.fitness.dense.densefitness.exercises.muscles.MusclesFragment;
+import com.fitness.dense.densefitness.personalRecords.ExercisesFragment;
+import com.fitness.dense.densefitness.personalRecords.muscles.PersonalRecords;
 import com.fitness.dense.densefitness.tabs.SlidingTabLayout;
 import com.fitness.dense.densefitness.workouts.WorkoutsFragment;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
+import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
+import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
 
 import java.util.List;
 import java.util.Vector;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     static final int NUM_ITEMS = 3;
+
+    private static final String TAG_NEW_WORKOUT = "newWorkout";
+    private static final String TAG_EXISTING_WORKOUT = "existingWorkout";
+    private static final String TAG_HERO_WORKOUT = "heroWorkout";
 
     //private Toolbar toolbar;
     private ViewPager mPager;
     private SlidingTabLayout mTabs;
+    private PagerAdapterControl mPagerAdapterControl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,17 +47,55 @@ public class MainActivity extends AppCompatActivity{
 
         //for each fragment you want to add to the pager
         fragments.add(Fragment.instantiate(this, WorkoutsFragment.class.getName()));
-        fragments.add(Fragment.instantiate(this, MusclesFragment.class.getName()));
+        fragments.add(Fragment.instantiate(this, PersonalRecords.class.getName()));
         fragments.add(Fragment.instantiate(this, BodyMassFragment.class.getName()));
 
         mPager = (ViewPager) findViewById(R.id.pager);
-        mPager.setAdapter(new PagerAdapterControl(this, getSupportFragmentManager(), fragments));
+        mPagerAdapterControl = new PagerAdapterControl(this, getSupportFragmentManager(), fragments);
+        mPager.setAdapter(mPagerAdapterControl);
         mTabs = (SlidingTabLayout) findViewById(R.id.tabs);
 
         //mTabs.setBackgroundColor(getResources().getColor(R.color.ColorPrimary));
         //mTabs.setSelectedIndicatorColors(getResources().getColor(R.color.tabsScrollColor));
 
         mTabs.setViewPager(mPager);
+
+        ImageView imageview = new ImageView(this);
+        imageview.setImageResource(R.drawable.ic_plus);
+
+        FloatingActionButton actionButton = new FloatingActionButton.Builder(this)
+                .setContentView(imageview)
+                .build();
+
+        ImageView iconHeroWorkouts = new ImageView(this);
+        iconHeroWorkouts.setImageResource(R.drawable.ic_star);
+
+        ImageView iconExistingWorkout = new ImageView(this);
+        iconExistingWorkout.setImageResource(R.drawable.ic_plus_box);
+
+        ImageView iconNewWorkout = new ImageView(this);
+        iconNewWorkout.setImageResource(R.drawable.ic_plus_circle);
+
+        SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
+
+        SubActionButton btnHeroWorkouts = itemBuilder.setContentView(iconHeroWorkouts).build();
+        SubActionButton btnExistingWorkout = itemBuilder.setContentView(iconExistingWorkout).build();
+        SubActionButton btnNewWorkout = itemBuilder.setContentView(iconNewWorkout).build();
+
+        btnHeroWorkouts.setTag(TAG_HERO_WORKOUT);
+        btnExistingWorkout.setTag(TAG_EXISTING_WORKOUT);
+        btnNewWorkout.setTag(TAG_NEW_WORKOUT);
+
+        btnHeroWorkouts.setOnClickListener(this);
+        btnExistingWorkout.setOnClickListener(this);
+        btnNewWorkout.setOnClickListener(this);
+
+        FloatingActionMenu actionMenu = new FloatingActionMenu.Builder(this)
+                .addSubActionView(btnHeroWorkouts)
+                .addSubActionView(btnExistingWorkout)
+                .addSubActionView(btnNewWorkout)
+                .attachTo(actionButton)
+                .build();
     }
 
     @Override
@@ -97,6 +147,27 @@ public class MainActivity extends AppCompatActivity{
         }*/
     }
 
+    @Override
+    public void onClick(View v) {
+        if(v.getTag().equals(TAG_HERO_WORKOUT)){
+            Fragment fragment = (Fragment) mPagerAdapterControl.instantiateItem(mPager, mPager.getCurrentItem());
+
+
+
+            Toast.makeText(this, "hero workout",
+                    Toast.LENGTH_SHORT).show();
+        }
+        if(v.getTag().equals(TAG_EXISTING_WORKOUT)){
+            Toast.makeText(this, "existing workout",
+                    Toast.LENGTH_SHORT).show();
+        }
+        if(v.getTag().equals(TAG_NEW_WORKOUT)){
+            Fragment fragment = (Fragment) mPagerAdapterControl.instantiateItem(mPager, mPager.getCurrentItem());
+
+            if(fragment instanceof NewWorkoutListener)
+                ((NewWorkoutListener) fragment).onNewWorkoutClick();
+        }
+    }
 }
 
 

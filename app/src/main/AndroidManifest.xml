@@ -29,13 +29,8 @@
         </provider>
 
         <provider
-            android:name=".database.contentProviderMuscle.MuscleContentProvider"
-            android:authorities="com.fitness.dense.densefitness.database.contentProviderMuscle" >
-        </provider>
-
-        <provider
-            android:name=".database.contentProviderExercise.ExerciseContentProvider"
-            android:authorities="com.fitness.dense.densefitness.database.contentProviderExercise" >
+            android:name=".database.contentProviderExerciseRecords.ExerciseRecordsContentProvider"
+            android:authorities="com.fitness.dense.densefitness.database.contentProviderExerciseRecords" >
         </provider>
 
         <activity

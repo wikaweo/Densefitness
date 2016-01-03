@@ -1,4 +1,4 @@
-package com.fitness.dense.densefitness.database.contentProviderWorkout;
+package com.fitness.dense.densefitness.database.contentProviderExerciseRecords;
 
 import android.content.ContentProvider;
 import android.content.ContentResolver;
@@ -10,52 +10,48 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
 
-import com.fitness.dense.densefitness.workouts.WorkoutsListManager.Information;
-import com.fitness.dense.densefitness.database.WorkoutDatabaseHelper;
-import com.fitness.dense.densefitness.database.WorkoutTable;
+import com.fitness.dense.densefitness.database.ExerciseRecordsDatabaseHelper;
+import com.fitness.dense.densefitness.database.ExerciseRecordsTable;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 
 /**
- * Created by Fredrik on 2015-09-29.
+ * Created by Fredrik on 2015-12-30.
  */
-public class WorkoutContentProvider extends ContentProvider {
+public class ExerciseRecordsContentProvider extends ContentProvider {
 
-    // database
-    private WorkoutDatabaseHelper database;
+    private ExerciseRecordsDatabaseHelper database;
 
     // used for the UriMacher
-    private static final int WORKOUTS = 10;
-    private static final int WORKOUTS_ID = 20;
+    private static final int EXERCISERECORDS = 10;
+    private static final int EXERCISE_RECORDS_ID = 20;
 
-    private static final String AUTHORITY = "com.fitness.dense.densefitness.database.contentProviderWorkout";
+    private static final String AUTHORITY = "com.fitness.dense.densefitness.database.contentProviderExerciseRecords";
 
-    private static final String BASE_PATH = "workouts";
+    private static final String BASE_PATH = "exerciserecords";
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY
             + "/" + BASE_PATH);
 
     public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE
-            + "/workouts";
+            + "/exerciserecords";
     public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE
-            + "/workout";
+            + "/exerciserecords";
 
     private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     static {
-        sURIMatcher.addURI(AUTHORITY, BASE_PATH, WORKOUTS);
-        sURIMatcher.addURI(AUTHORITY, BASE_PATH + "/#", WORKOUTS_ID);
+        sURIMatcher.addURI(AUTHORITY, BASE_PATH, EXERCISERECORDS);
+        sURIMatcher.addURI(AUTHORITY, BASE_PATH + "/#", EXERCISE_RECORDS_ID);
     }
 
     @Override
     public boolean onCreate() {
-        database = new WorkoutDatabaseHelper(getContext());
+        database = new ExerciseRecordsDatabaseHelper(getContext());
         return false;
     }
 
     @Override
     public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
-
         // Using SQLiteQueryBuilder instead of query() method
         SQLiteQueryBuilder queryBuilder = new SQLiteQueryBuilder();
 
@@ -63,15 +59,15 @@ public class WorkoutContentProvider extends ContentProvider {
         checkColumns(projection);
 
         // Set the table
-        queryBuilder.setTables(WorkoutTable.TABLE_WORKOUT);
+        queryBuilder.setTables(ExerciseRecordsTable.TABLE_EXERCISE_RECORDS);
 
         int uriType = sURIMatcher.match(uri);
         switch (uriType) {
-            case WORKOUTS:
+            case EXERCISERECORDS:
                 break;
-            case WORKOUTS_ID:
+            case EXERCISE_RECORDS_ID:
                 // adding the ID to the original query
-                queryBuilder.appendWhere(WorkoutTable.COLUMN_ID + "="
+                queryBuilder.appendWhere(ExerciseRecordsTable.COLUMN_ID + "="
                         + uri.getLastPathSegment());
                 break;
             default:
@@ -88,9 +84,7 @@ public class WorkoutContentProvider extends ContentProvider {
     }
 
     @Override
-    public String getType(Uri uri) {
-        return null;
-    }
+    public String getType(Uri uri) { return null; }
 
     @Override
     public Uri insert(Uri uri, ContentValues values) {
@@ -99,8 +93,8 @@ public class WorkoutContentProvider extends ContentProvider {
         int rowsDeleted = 0;
         long id = 0;
         switch (uriType) {
-            case WORKOUTS:
-                id = sqlDB.insert(WorkoutTable.TABLE_WORKOUT, null, values);
+            case EXERCISERECORDS:
+                id = sqlDB.insert(ExerciseRecordsTable.TABLE_EXERCISE_RECORDS, null, values);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);
@@ -115,21 +109,21 @@ public class WorkoutContentProvider extends ContentProvider {
         SQLiteDatabase sqlDB = database.getWritableDatabase();
         int rowsDeleted = 0;
         switch (uriType) {
-            case WORKOUTS:
-                rowsDeleted = sqlDB.delete(WorkoutTable.TABLE_WORKOUT, selection,
+            case EXERCISERECORDS:
+                rowsDeleted = sqlDB.delete(ExerciseRecordsTable.TABLE_EXERCISE_RECORDS, selection,
                         selectionArgs);
                 break;
-            case WORKOUTS_ID:
+            case EXERCISE_RECORDS_ID:
                 String id = uri.getLastPathSegment();
                 if (TextUtils.isEmpty(selection))
                 {
-                    rowsDeleted = sqlDB.delete(WorkoutTable.TABLE_WORKOUT,
-                            WorkoutTable.COLUMN_ID + "=" + id, null);
+                    rowsDeleted = sqlDB.delete(ExerciseRecordsTable.TABLE_EXERCISE_RECORDS,
+                            ExerciseRecordsTable.COLUMN_ID + "=" + id, null);
                 }
                 else
                 {
-                    rowsDeleted = sqlDB.delete(WorkoutTable.TABLE_WORKOUT,
-                            WorkoutTable.COLUMN_ID + "=" + id
+                    rowsDeleted = sqlDB.delete(ExerciseRecordsTable.TABLE_EXERCISE_RECORDS,
+                            ExerciseRecordsTable.COLUMN_ID + "=" + id
                                     + " and " + selection, selectionArgs);
                 }
                 break;
@@ -146,25 +140,25 @@ public class WorkoutContentProvider extends ContentProvider {
         SQLiteDatabase sqlDB = database.getWritableDatabase();
         int rowsUpdated = 0;
         switch (uriType) {
-            case WORKOUTS:
-                rowsUpdated = sqlDB.update(WorkoutTable.TABLE_WORKOUT,
+            case EXERCISERECORDS:
+                rowsUpdated = sqlDB.update(ExerciseRecordsTable.TABLE_EXERCISE_RECORDS,
                         values,
                         selection,
                         selectionArgs);
                 break;
-            case WORKOUTS_ID:
+            case EXERCISE_RECORDS_ID:
                 String id = uri.getLastPathSegment();
                 if (TextUtils.isEmpty(selection))
                 {
-                    rowsUpdated = sqlDB.update(WorkoutTable.TABLE_WORKOUT,
+                    rowsUpdated = sqlDB.update(ExerciseRecordsTable.TABLE_EXERCISE_RECORDS,
                             values,
-                            WorkoutTable.COLUMN_ID + "=" + id, null);
+                            ExerciseRecordsTable.COLUMN_ID + "=" + id, null);
                 }
                 else
                 {
-                    rowsUpdated = sqlDB.update(WorkoutTable.TABLE_WORKOUT,
+                    rowsUpdated = sqlDB.update(ExerciseRecordsTable.TABLE_EXERCISE_RECORDS,
                             values,
-                            WorkoutTable.COLUMN_ID + "=" + id
+                            ExerciseRecordsTable.COLUMN_ID + "=" + id
                                     + " and "
                                     + selection,
                             selectionArgs);
@@ -178,15 +172,11 @@ public class WorkoutContentProvider extends ContentProvider {
     }
 
     private void checkColumns(String[] projection) {
-        String[] available = { WorkoutTable.COLUMN_ID,
-                WorkoutTable.COLUMN_WORKOUT_NAME,
-                WorkoutTable.COLUMN_WORKOUT_DATE,
-                WorkoutTable.COLUMN_DESCRIPTION,
-                WorkoutTable.COLUMN_TIME,
-                WorkoutTable.COLUMN_ROUNDS,
-                WorkoutTable.COLUMN_WEIGHT,
-                WorkoutTable.COLUMN_REPS
-                };
+        String[] available = { ExerciseRecordsTable.COLUMN_ID,
+                ExerciseRecordsTable.COLUMN_EXERCISE_NAME,
+                ExerciseRecordsTable.COLUMN_EXERCISE_DATE,
+                ExerciseRecordsTable.COLUMN_RECORD_TYPE,
+                ExerciseRecordsTable.COLUMN_RECORD_RESULT };
         if (projection != null) {
             HashSet<String> requestedColumns = new HashSet<String>(Arrays.asList(projection));
             HashSet<String> availableColumns = new HashSet<String>(Arrays.asList(available));

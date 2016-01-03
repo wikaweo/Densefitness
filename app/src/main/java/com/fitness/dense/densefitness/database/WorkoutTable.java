@@ -12,7 +12,12 @@ public class WorkoutTable {
     public static final String TABLE_WORKOUT = "workout";
     public static final String COLUMN_ID = "workout_id";
     public static final String COLUMN_WORKOUT_NAME = "workout_name";
-    public static final String COLUMN_MUSCLE_GROUPS = "muscle_groups";
+    public static final String COLUMN_WORKOUT_DATE = "workout_date";
+    public static final String COLUMN_DESCRIPTION = "description";
+    public static final String COLUMN_TIME = "time";
+    public static final String COLUMN_ROUNDS = "rounds";
+    public static final String COLUMN_WEIGHT = "weight";
+    public static final String COLUMN_REPS = "reps";
 
     // Database creation SQL statement
     private static final String DATABASE_CREATE = "create table "
@@ -20,14 +25,17 @@ public class WorkoutTable {
             + "("
             + COLUMN_ID + " integer primary key autoincrement, "
             + COLUMN_WORKOUT_NAME + " text, "
-            + COLUMN_MUSCLE_GROUPS + " text"
+            + COLUMN_WORKOUT_DATE + " integer, "
+            + COLUMN_DESCRIPTION + " text, "
+            + COLUMN_TIME + " integer, "
+            + COLUMN_ROUNDS + " integer, "
+            + COLUMN_WEIGHT + " integer, "
+            + COLUMN_REPS + " integer"
             + ");";
 
     public static void onCreate(SQLiteDatabase database) {
         database.execSQL(DATABASE_CREATE);
-        database.execSQL("insert into " + TABLE_WORKOUT + "(" + COLUMN_WORKOUT_NAME + "," + COLUMN_MUSCLE_GROUPS + ") values('WOD', 'Chest')");
-        database.execSQL("insert into " + TABLE_WORKOUT + "(" + COLUMN_WORKOUT_NAME + "," + COLUMN_MUSCLE_GROUPS + ") values('Dense', 'Back')");
-        database.execSQL("insert into " + TABLE_WORKOUT + "(" + COLUMN_WORKOUT_NAME + "," + COLUMN_MUSCLE_GROUPS + ") values('Fitness', 'Abs')");
+        database.execSQL("insert into " + TABLE_WORKOUT + "(" + COLUMN_WORKOUT_NAME + ") values('Linda')");
     }
 
     public static void onUpgrade(SQLiteDatabase database, int oldVersion,

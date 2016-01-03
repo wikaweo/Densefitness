@@ -1,23 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_width="match_parent"
-    android:layout_height="48dp"
-    android:id="@+id/llitem">
-
-    <!--<ImageView
-        android:layout_gravity="center_vertical"
-        android:padding="8dp"
-        android:id="@+id/workoutIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        android:layout_centerVertical="true"
-        android:src="@drawable/ic_action_name"/>-->
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/exerciceCellItem">
 
     <ImageView
-        android:id="@+id/handle"
+        android:id="@+id/personalRecordImg"
         android:paddingLeft="16dp"
         android:layout_width="?listPreferredItemHeight"
         android:layout_height="match_parent"
@@ -31,15 +19,12 @@
         android:paddingBottom="20dp"
         android:layout_marginLeft="16dp"
         android:layout_centerVertical="true"
-        android:id="@+id/workoutText"
+        android:id="@+id/exercisePersonalRecordText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:fontFamily="sans-serif"
         android:text="Dummy text">
     </TextView>
-
-
-
 
 </LinearLayout>
