@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:fontFamily="sans-serif"
-        android:text="Exercises" />
+        android:text="Your personal records" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/personalRecordList"

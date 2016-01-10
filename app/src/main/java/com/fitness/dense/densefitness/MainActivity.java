@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.fitness.dense.densefitness.Interfaces.NewWorkoutListener;
 import com.fitness.dense.densefitness.bodymass.BodyMassFragment;
 import com.fitness.dense.densefitness.personalRecords.ExercisesFragment;
-import com.fitness.dense.densefitness.personalRecords.muscles.PersonalRecords;
+import com.fitness.dense.densefitness.personalRecords.personalRecords.PersonalRecords;
 import com.fitness.dense.densefitness.tabs.SlidingTabLayout;
 import com.fitness.dense.densefitness.workouts.WorkoutsFragment;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
@@ -151,8 +151,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         if(v.getTag().equals(TAG_HERO_WORKOUT)){
             Fragment fragment = (Fragment) mPagerAdapterControl.instantiateItem(mPager, mPager.getCurrentItem());
-
-
 
             Toast.makeText(this, "hero workout",
                     Toast.LENGTH_SHORT).show();

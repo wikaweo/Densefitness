@@ -21,7 +21,9 @@ public class WorkoutsViewHolder extends RecyclerView.ViewHolder implements View.
     private Context context;
 
     public final TextView workoutTitle;
-    public final ImageView  handleView;
+    public final TextView workoutDescription;
+    public final TextView workoutDate;
+    //public final ImageView  handleView;
 
     public WorkoutsViewHolder(View itemView, Context context) {
         super(itemView);
@@ -29,9 +31,10 @@ public class WorkoutsViewHolder extends RecyclerView.ViewHolder implements View.
         //itemView.setOnClickListener(this);
         //itemView.setOnLongClickListener(this);
         workoutTitle = (TextView) itemView.findViewById(R.id.workoutText);
+        workoutDescription = (TextView) itemView.findViewById(R.id.workoutDescription);
+        workoutDate = (TextView) itemView.findViewById(R.id.workoutDate);
         //icon = (ImageView) itemView.findViewById(R.id.workoutIcon);
-        handleView = (ImageView) itemView.findViewById(R.id.handle);
-
+        //handleView = (ImageView) itemView.findViewById(R.id.handle);
     }
 
     @Override

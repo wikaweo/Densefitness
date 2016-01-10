@@ -18,16 +18,15 @@
             </intent-filter>
         </activity>
 
+
         <provider
             android:name=".database.contentProviderWorkout.WorkoutContentProvider"
             android:authorities="com.fitness.dense.densefitness.database.contentProviderWorkout" >
         </provider>
-
         <provider
             android:name=".database.contentProviderBodyMass.BodyMassContentProvider"
             android:authorities="com.fitness.dense.densefitness.database.contentProviderBodyMass" >
         </provider>
-
         <provider
             android:name=".database.contentProviderExerciseRecords.ExerciseRecordsContentProvider"
             android:authorities="com.fitness.dense.densefitness.database.contentProviderExerciseRecords" >
@@ -36,6 +35,10 @@
         <activity
             android:name=".Workout"
             android:label="@string/title_activity_workout" >
+        </activity>
+        <activity
+            android:name=".workouts.WorkoutDetails"
+            android:label="" >
         </activity>
     </application>
 

@@ -1,4 +1,4 @@
-package com.fitness.dense.densefitness.personalRecords.muscles;
+package com.fitness.dense.densefitness.personalRecords.personalRecords;
 
 /**
  * Created by Fredrik on 2015-11-22.

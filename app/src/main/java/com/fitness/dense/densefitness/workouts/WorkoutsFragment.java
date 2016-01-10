@@ -2,6 +2,7 @@ package com.fitness.dense.densefitness.workouts;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -94,10 +95,10 @@ public class WorkoutsFragment extends Fragment implements OnStartDragListener, N
 
 
 
-        workoutNameText = (EditText)rootView.findViewById(R.id.etWorkoutName);
-        btnAdd = (Button)rootView.findViewById(R.id.btnAdd);
+        //workoutNameText = (EditText)rootView.findViewById(R.id.etWorkoutName);
+        //btnAdd = (Button)rootView.findViewById(R.id.btnAdd);
 
-        btnAdd.setOnClickListener(new View.OnClickListener() {
+        /*btnAdd.setOnClickListener(new View.OnClickListener() {
                                       @Override
                                       public void onClick(View v) {
                                           String workoutName = workoutNameText.getText().toString();
@@ -119,7 +120,7 @@ public class WorkoutsFragment extends Fragment implements OnStartDragListener, N
                                           }
                                       }
                                   }
-        );
+        );*/
 
         return rootView;
     }
@@ -133,7 +134,7 @@ public class WorkoutsFragment extends Fragment implements OnStartDragListener, N
         ArrayList<Information> WorkoutList = new ArrayList<>();
 
         Uri uri = WorkoutContentProvider.CONTENT_URI;
-        String[] columns = {WorkoutTable.COLUMN_WORKOUT_NAME};
+        String[] columns = {WorkoutTable.COLUMN_WORKOUT_NAME, WorkoutTable.COLUMN_DESCRIPTION, WorkoutTable.COLUMN_WORKOUT_DATE};
 
         Cursor cursor = getActivity().getContentResolver().query(uri, columns, null, null, null);
         if (cursor != null && cursor.moveToFirst()) {
@@ -141,6 +142,8 @@ public class WorkoutsFragment extends Fragment implements OnStartDragListener, N
                 Information information = new Information();
 
                 information.setTitle(cursor.getString(cursor.getColumnIndex(WorkoutTable.COLUMN_WORKOUT_NAME)));
+                information.setDescription(cursor.getString(cursor.getColumnIndex(WorkoutTable.COLUMN_DESCRIPTION)));
+                information.setDate(cursor.getString(cursor.getColumnIndex(WorkoutTable.COLUMN_WORKOUT_DATE)));
                 WorkoutList.add(information);
             }
             while (cursor.moveToNext());
@@ -170,7 +173,9 @@ public class WorkoutsFragment extends Fragment implements OnStartDragListener, N
 
     @Override
     public void onNewWorkoutClick() {
-        Toast.makeText(getActivity(), "new workout", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "New workout", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), WorkoutDetails.class);
+        startActivity(intent);
     }
 
     public class ActionModeCallback implements ActionMode.Callback{

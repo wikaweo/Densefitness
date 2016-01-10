@@ -1,14 +1,17 @@
-package com.fitness.dense.densefitness.personalRecords.muscles;
+package com.fitness.dense.densefitness.personalRecords.personalRecords;
 
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.fitness.dense.densefitness.R;
 import com.fitness.dense.densefitness.database.ExerciseRecordsTable;
@@ -19,7 +22,7 @@ import java.util.ArrayList;
 /**
  * Created by Fredrik on 2015-09-20.
  */
-public class PersonalRecords extends Fragment {
+public class PersonalRecords extends DialogFragment {
     public static final String ARG_OBJECT = "object";
 
     private RecyclerView mRecyclerView;

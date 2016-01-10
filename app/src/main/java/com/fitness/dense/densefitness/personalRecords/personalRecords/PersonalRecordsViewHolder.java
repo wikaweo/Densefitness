@@ -1,4 +1,4 @@
-package com.fitness.dense.densefitness.personalRecords.muscles;
+package com.fitness.dense.densefitness.personalRecords.personalRecords;
 
 import android.content.Context;
 import android.os.Bundle;

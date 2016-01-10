@@ -3,6 +3,8 @@
     <string name="date">Date</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="action_cancel">Cancel</string>
+    <string name="action_save">Save</string>
     <string-array name="tabs">
         <item>Workouts</item>
         <item>Exercises</item>
@@ -10,4 +12,5 @@
     </string-array>
     <string name="title_activity_body_mass_history">BodyMassHistory</string>
     <string name="title_activity_workout">Workout</string>
+    <string name="title_activity_workout_details">WorkoutDetails</string>
 </resources>

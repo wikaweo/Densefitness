@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="48dp"
     android:id="@+id/llitem">
 
@@ -16,30 +16,48 @@
         android:layout_centerVertical="true"
         android:src="@drawable/ic_action_name"/>-->
 
-    <ImageView
+    <!--<ImageView
         android:id="@+id/handle"
         android:paddingLeft="16dp"
         android:layout_width="?listPreferredItemHeight"
         android:layout_height="match_parent"
         android:layout_gravity="right"
-        android:scaleType="center" />
+        android:scaleType="center" />-->
 
     <TextView
-        android:layout_gravity="center_vertical"
-        android:padding="8dp"
-        android:paddingTop="16dp"
-        android:paddingBottom="20dp"
-        android:layout_marginLeft="16dp"
-        android:layout_centerVertical="true"
         android:id="@+id/workoutText"
-        android:layout_width="wrap_content"
+        android:layout_gravity="start"
+        android:paddingLeft="16dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignWithParentIfMissing="true"
+        android:gravity="center_vertical"
         android:textSize="16sp"
-        android:fontFamily="sans-serif"
-        android:text="Dummy text">
+        android:fontFamily="sans-serif-medium">
     </TextView>
 
+    <TextView
+        android:id="@+id/workoutDescription"
+        android:layout_below="@+id/workoutText"
+        android:layout_gravity="start"
+        android:paddingLeft="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:textSize="14sp"
+        android:fontFamily="sans-serif">
+    </TextView>
 
-
-
-</LinearLayout>
+    <TextView
+        android:id="@+id/workoutDate"
+        android:layout_gravity="end"
+        android:paddingRight="16dp"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="12sp"
+        android:fontFamily="sans-serif">
+    </TextView>
+</RelativeLayout>
