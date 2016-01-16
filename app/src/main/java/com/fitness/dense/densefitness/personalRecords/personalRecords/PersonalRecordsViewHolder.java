@@ -10,12 +10,11 @@ import android.widget.TextView;
 import com.fitness.dense.densefitness.MainActivity;
 import com.fitness.dense.densefitness.R;
 import com.fitness.dense.densefitness.personalRecords.ExercisesFragment;
-import com.fitness.dense.densefitness.workouts.WorkoutsListManager.ItemTouchHelper.ItemTouchHelperViewHolder;
 
 /**
  * Created by Fredrik on 2015-11-22.
  */
-public class PersonalRecordsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener, ItemTouchHelperViewHolder {
+public class PersonalRecordsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
 
     private Context context;
     private ExercisesFragment mExercisesFragment;
@@ -30,16 +29,6 @@ public class PersonalRecordsViewHolder extends RecyclerView.ViewHolder implement
         muscleTitle = (TextView) itemView.findViewById(R.id.exercisePersonalRecordText);
         muscleImage = (ImageView) itemView.findViewById(R.id.personalRecordImg);
         muscleTitle.setOnClickListener(this);
-    }
-
-    @Override
-    public void onItemSelected() {
-
-    }
-
-    @Override
-    public void onItemClear() {
-
     }
 
     @Override

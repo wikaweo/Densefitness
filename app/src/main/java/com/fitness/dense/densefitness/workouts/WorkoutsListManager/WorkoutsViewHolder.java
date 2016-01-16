@@ -11,12 +11,11 @@ import android.widget.Toast;
 
 import com.fitness.dense.densefitness.R;
 import com.fitness.dense.densefitness.Workout;
-import com.fitness.dense.densefitness.workouts.WorkoutsListManager.ItemTouchHelper.ItemTouchHelperViewHolder;
 
 /**
  * Created by Fredrik on 2015-10-02.
  */
-public class WorkoutsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener, ItemTouchHelperViewHolder {
+public class WorkoutsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
     private Context context;
 
@@ -35,26 +34,19 @@ public class WorkoutsViewHolder extends RecyclerView.ViewHolder implements View.
         workoutDate = (TextView) itemView.findViewById(R.id.workoutDate);
         //icon = (ImageView) itemView.findViewById(R.id.workoutIcon);
         //handleView = (ImageView) itemView.findViewById(R.id.handle);
+        workoutTitle.setOnClickListener(this);
+        workoutTitle.setOnLongClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        context.startActivity(new Intent(context, Workout.class));
+        //context.startActivity(new Intent(context, Workout.class));
         Toast.makeText(workoutTitle.getContext(), " Item clicked at " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public boolean onLongClick(View v) {
+        Toast.makeText(workoutTitle.getContext(), " Item clicked at long click" + getAdapterPosition(), Toast.LENGTH_SHORT).show();
         return false;
-    }
-
-    @Override
-    public void onItemSelected() {
-        itemView.setBackgroundColor(Color.LTGRAY);
-    }
-
-    @Override
-    public void onItemClear() {
-        itemView.setBackgroundColor(0);
     }
 }

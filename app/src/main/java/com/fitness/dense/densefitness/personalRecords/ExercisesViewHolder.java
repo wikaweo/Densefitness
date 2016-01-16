@@ -8,12 +8,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fitness.dense.densefitness.R;
-import com.fitness.dense.densefitness.workouts.WorkoutsListManager.ItemTouchHelper.ItemTouchHelperViewHolder;
 
 /**
  * Created by Fredrik on 2015-12-30.
  */
-public class ExercisesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener, ItemTouchHelperViewHolder {
+public class ExercisesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
     private Context context;
 
@@ -26,16 +25,6 @@ public class ExercisesViewHolder extends RecyclerView.ViewHolder implements View
         exerciseTitle = (TextView) itemView.findViewById(R.id.exerciseText);
         exerciseImage = (ImageView) itemView.findViewById(R.id.exerciseImg);
         exerciseTitle.setOnClickListener(this);
-    }
-
-    @Override
-    public void onItemSelected() {
-
-    }
-
-    @Override
-    public void onItemClear() {
-
     }
 
     @Override

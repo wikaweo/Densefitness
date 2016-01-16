@@ -7,14 +7,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.fitness.dense.densefitness.R;
-import com.fitness.dense.densefitness.workouts.WorkoutsListManager.ItemTouchHelper.ItemTouchHelperAdapter;
 
 import java.util.ArrayList;
 
 /**
  * Created by Fredrik on 2015-12-30.
  */
-public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesViewHolder> implements ItemTouchHelperAdapter {
+public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesViewHolder> {
 
     private LayoutInflater inflater;
     private Context context;
@@ -41,15 +40,4 @@ public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesViewHolder> 
 
     @Override
     public int getItemCount() { return exercisesInformation.size(); }
-
-    @Override
-    public boolean onItemMove(int fromPosition, int toPosition) {
-        return false;
-    }
-
-    @Override
-    public void onItemDismiss(int position) {
-        exercisesInformation.remove(position);
-        notifyItemRemoved(position);
-    }
 }
