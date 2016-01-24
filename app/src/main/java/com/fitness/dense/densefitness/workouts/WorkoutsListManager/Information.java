@@ -5,9 +5,31 @@ package com.fitness.dense.densefitness.workouts.WorkoutsListManager;
  */
 public class Information {
     public int iconId;
+    public int workoutId;
+    public boolean isChecked = false;
     public String title;
     public String description;
     public String date;
+
+    public void setId(int id)
+    {
+        this.workoutId = id;
+    }
+
+    public int getId()
+    {
+        return workoutId;
+    }
+
+    public void setIsChecked(boolean checked)
+    {
+        this.isChecked = checked;
+    }
+
+    public boolean getIsChecked()
+    {
+        return isChecked;
+    }
 
     public void setTitle(String workout)
     {

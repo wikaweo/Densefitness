@@ -126,12 +126,29 @@ public class WorkoutContentProvider extends ContentProvider {
                     rowsDeleted = sqlDB.delete(WorkoutTable.TABLE_WORKOUT,
                             WorkoutTable.COLUMN_ID + "=" + id, null);
                 }
+                else if(selection.contains(","))
+                {
+                    rowsDeleted = sqlDB.delete(WorkoutTable.TABLE_WORKOUT,
+                            WorkoutTable.COLUMN_ID + " in " + "(" + selection + ")", null);
+                }
                 else
                 {
                     rowsDeleted = sqlDB.delete(WorkoutTable.TABLE_WORKOUT,
                             WorkoutTable.COLUMN_ID + "=" + id
                                     + " and " + selection, selectionArgs);
                 }
+                /*String id = uri.getLastPathSegment();
+                if (TextUtils.isEmpty(selection))
+                {
+                    rowsDeleted = sqlDB.delete(WorkoutTable.TABLE_WORKOUT,
+                            WorkoutTable.COLUMN_ID + "=" + id, null);
+                }
+                else
+                {
+                    rowsDeleted = sqlDB.delete(WorkoutTable.TABLE_WORKOUT,
+                            WorkoutTable.COLUMN_ID + "=" + id
+                                    + " and " + selection, selectionArgs);
+                }*/
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);
@@ -185,7 +202,8 @@ public class WorkoutContentProvider extends ContentProvider {
                 WorkoutTable.COLUMN_TIME,
                 WorkoutTable.COLUMN_ROUNDS,
                 WorkoutTable.COLUMN_WEIGHT,
-                WorkoutTable.COLUMN_REPS
+                WorkoutTable.COLUMN_REPS,
+                WorkoutTable.COLUMN_BENCHMARK_TYPE
                 };
         if (projection != null) {
             HashSet<String> requestedColumns = new HashSet<String>(Arrays.asList(projection));

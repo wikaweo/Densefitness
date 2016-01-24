@@ -18,6 +18,7 @@ public class WorkoutTable {
     public static final String COLUMN_ROUNDS = "rounds";
     public static final String COLUMN_WEIGHT = "weight";
     public static final String COLUMN_REPS = "reps";
+    public static final String COLUMN_BENCHMARK_TYPE = "benchmark_type";
 
     // Database creation SQL statement
     private static final String DATABASE_CREATE = "create table "
@@ -30,7 +31,8 @@ public class WorkoutTable {
             + COLUMN_TIME + " integer, "
             + COLUMN_ROUNDS + " integer, "
             + COLUMN_WEIGHT + " integer, "
-            + COLUMN_REPS + " integer"
+            + COLUMN_REPS + " integer, "
+            + COLUMN_BENCHMARK_TYPE + " text"
             + ");";
 
     public static void onCreate(SQLiteDatabase database) {

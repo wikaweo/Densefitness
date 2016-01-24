@@ -17,7 +17,7 @@ import com.fitness.dense.densefitness.bodymass.BodyMassFragment;
 import com.fitness.dense.densefitness.personalRecords.ExercisesFragment;
 import com.fitness.dense.densefitness.personalRecords.personalRecords.PersonalRecords;
 import com.fitness.dense.densefitness.tabs.SlidingTabLayout;
-import com.fitness.dense.densefitness.workouts.WorkoutsFragment;
+import com.fitness.dense.densefitness.workouts.WorkoutsListManager.WorkoutsFragment;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionButton;
 import com.oguzdev.circularfloatingactionmenu.library.FloatingActionMenu;
 import com.oguzdev.circularfloatingactionmenu.library.SubActionButton;
