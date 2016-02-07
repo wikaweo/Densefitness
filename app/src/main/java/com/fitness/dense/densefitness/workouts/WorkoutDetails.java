@@ -43,7 +43,21 @@ public class WorkoutDetails extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout_details);
 
+        Intent intent = getIntent();
+        Bundle values = intent.getExtras();
+        String[] heroWod = null;
+        if(values != null)
+            heroWod = values.getStringArray("heroWod");
+
         InitiateInputFields();
+
+        if(heroWod != null)
+        {
+            mTitle.setText(heroWod[0]);
+            mDescription.setText(heroWod[1]);
+        }
+
+
         mDate.setOnClickListener(new View.OnClickListener() {
 
             @Override

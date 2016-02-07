@@ -6,4 +6,6 @@ package com.fitness.dense.densefitness.Interfaces;
 public interface NewWorkoutListener {
 
     void onNewWorkoutClick();
+
+    void onHeroWorkoutClick();
 }

@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.fitness.dense.densefitness.Interfaces.WorkoutListener;
 import com.fitness.dense.densefitness.Interfaces.NewWorkoutListener;
 import com.fitness.dense.densefitness.MainActivity;
+import com.fitness.dense.densefitness.workouts.Benchmark.Benchmarks;
 import com.fitness.dense.densefitness.workouts.WorkoutDetails;
 import com.fitness.dense.densefitness.R;
 //import com.fitness.dense.densefitness.workouts.WorkoutsListManager.ItemTouchHelper.OnStartDragListener;
@@ -92,6 +93,13 @@ public class WorkoutsFragment extends Fragment implements NewWorkoutListener, Ac
     public void onNewWorkoutClick() {
         Toast.makeText(getActivity(), "New workout", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), WorkoutDetails.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onHeroWorkoutClick() {
+        Toast.makeText(getActivity(), "Hero workout", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getActivity(), Benchmarks.class);
         startActivity(intent);
     }
 

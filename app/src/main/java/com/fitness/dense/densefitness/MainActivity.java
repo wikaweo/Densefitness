@@ -152,8 +152,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(v.getTag().equals(TAG_HERO_WORKOUT)){
             Fragment fragment = (Fragment) mPagerAdapterControl.instantiateItem(mPager, mPager.getCurrentItem());
 
-            Toast.makeText(this, "hero workout",
-                    Toast.LENGTH_SHORT).show();
+            if(fragment instanceof NewWorkoutListener)
+                ((NewWorkoutListener) fragment).onHeroWorkoutClick();
         }
         if(v.getTag().equals(TAG_EXISTING_WORKOUT)){
             Toast.makeText(this, "existing workout",

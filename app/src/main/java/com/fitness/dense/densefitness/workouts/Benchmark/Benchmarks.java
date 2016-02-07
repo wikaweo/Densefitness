@@ -37,7 +37,7 @@ public class Benchmarks extends AppCompatActivity {
 
         Uri uri = WorkoutContentProvider.CONTENT_URI;
         String[] columns = {WorkoutTable.COLUMN_ID, WorkoutTable.COLUMN_WORKOUT_NAME, WorkoutTable.COLUMN_DESCRIPTION, WorkoutTable.COLUMN_WORKOUT_DATE};
-        String whereClause = WorkoutTable.COLUMN_BENCHMARK_TYPE + " is null or " + WorkoutTable.COLUMN_BENCHMARK_TYPE + " =  ?";
+        String whereClause = WorkoutTable.COLUMN_BENCHMARK_TYPE + " = ?";
 
         Cursor cursor = getContentResolver().query(uri, columns, whereClause, new String[] {"Hero"}, null);
         if (cursor != null && cursor.moveToFirst()) {

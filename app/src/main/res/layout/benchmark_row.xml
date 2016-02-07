@@ -5,10 +5,19 @@
     android:layout_height="48dp"
     android:id="@+id/benchmarkItem">
 
+    <ImageView
+        android:layout_gravity="center_vertical"
+        android:paddingLeft="16dp"
+        android:id="@+id/banchmarkIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_golden_star"/>
+
     <TextView
         android:id="@+id/benchmarkTitle"
         android:layout_gravity="start"
-        android:paddingLeft="16dp"
+        android:paddingLeft="72dp"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -21,9 +30,9 @@
 
     <TextView
         android:id="@+id/benchmarkDescription"
-        android:layout_below="@+id/workoutText"
+        android:layout_below="@+id/benchmarkTitle"
         android:layout_gravity="start"
-        android:paddingLeft="16dp"
+        android:paddingLeft="72dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:singleLine="true"

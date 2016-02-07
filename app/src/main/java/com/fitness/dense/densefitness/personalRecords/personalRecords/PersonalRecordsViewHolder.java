@@ -46,7 +46,6 @@ public class PersonalRecordsViewHolder extends RecyclerView.ViewHolder implement
             MainActivity mainActivity = (MainActivity) context;
             mainActivity.switchContent(position);
         }
-
     }
 
     @Override

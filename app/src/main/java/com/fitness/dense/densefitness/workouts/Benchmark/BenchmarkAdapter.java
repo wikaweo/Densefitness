@@ -38,7 +38,7 @@ public class BenchmarkAdapter extends RecyclerView.Adapter<BenchmarkViewHolder> 
 
     @Override
     public BenchmarkViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = inflater.inflate(R.layout.workouts_row, parent, false);
+        View view = inflater.inflate(R.layout.benchmark_row, parent, false);
         holder = new BenchmarkViewHolder(view, context);
         return holder;
     }
@@ -46,8 +46,8 @@ public class BenchmarkAdapter extends RecyclerView.Adapter<BenchmarkViewHolder> 
     @Override
     public void onBindViewHolder(final BenchmarkViewHolder holder, int position) {
         Properties current = properties.get(position);
-        holder.benchmarkTitle.setText(current.title);
-        holder.benchmarkDescription.setText(current.description);
+        holder.benchmarkTitle.setText(current.workoutTitle);
+        holder.benchmarkDescription.setText(current.workoutDescription);
     }
 
     @Override
