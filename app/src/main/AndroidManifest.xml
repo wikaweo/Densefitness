@@ -27,6 +27,10 @@
             android:authorities="com.fitness.dense.densefitness.database.contentProviderBodyMass" >
         </provider>
         <provider
+            android:name=".database.contentProviderExercise.ExerciseContentProvider"
+            android:authorities="com.fitness.dense.densefitness.database.contentProviderExercise" >
+        </provider>
+        <provider
             android:name=".database.contentProviderExerciseRecords.ExerciseRecordsContentProvider"
             android:authorities="com.fitness.dense.densefitness.database.contentProviderExerciseRecords" >
         </provider>
@@ -42,6 +46,10 @@
         <activity
             android:name=".workouts.Benchmark.Benchmarks"
             android:label="@string/title_activity_benchmarks" >
+        </activity>
+        <activity
+            android:name=".personalRecords.Exercises"
+            android:label="@string/title_activity_exercises" >
         </activity>
     </application>
 

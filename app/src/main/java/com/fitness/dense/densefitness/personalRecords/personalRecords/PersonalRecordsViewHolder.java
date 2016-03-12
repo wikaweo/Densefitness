@@ -7,9 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.fitness.dense.densefitness.MainActivity;
 import com.fitness.dense.densefitness.R;
-import com.fitness.dense.densefitness.personalRecords.ExercisesFragment;
 
 /**
  * Created by Fredrik on 2015-11-22.
@@ -17,7 +15,6 @@ import com.fitness.dense.densefitness.personalRecords.ExercisesFragment;
 public class PersonalRecordsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener{
 
     private Context context;
-    private ExercisesFragment mExercisesFragment;
     private Bundle mBundle;
 
     public final TextView muscleTitle;
@@ -36,17 +33,17 @@ public class PersonalRecordsViewHolder extends RecyclerView.ViewHolder implement
         //((MainActivity)context).switchToNewFragment();
         //fragmentJump(getAdapterPosition());
         //Toast.makeText(muscleTitle.getContext(), " Item clicked at " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
-        switchContent(getAdapterPosition());
+        //switchContent(getAdapterPosition());
     }
 
-    public void switchContent(int position) {
+    /*public void switchContent(int position) {
         if (context == null)
             return;
         if (context instanceof MainActivity) {
             MainActivity mainActivity = (MainActivity) context;
             mainActivity.switchContent(position);
         }
-    }
+    }*/
 
     @Override
     public boolean onLongClick(View v) {

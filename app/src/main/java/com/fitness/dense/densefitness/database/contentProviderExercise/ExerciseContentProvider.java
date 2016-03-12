@@ -1,4 +1,4 @@
-package com.fitness.dense.densefitness.database.contentProviderExerciseRecords;
+package com.fitness.dense.densefitness.database.contentProviderExercise;
 
 import android.content.ContentProvider;
 import android.content.ContentResolver;
@@ -10,43 +10,43 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
 
-import com.fitness.dense.densefitness.database.ExerciseRecordsDatabaseHelper;
-import com.fitness.dense.densefitness.database.ExerciseRecordsTable;
+import com.fitness.dense.densefitness.database.ExerciseDatabaseHelper;
+import com.fitness.dense.densefitness.database.ExerciseTable;
 
 import java.util.Arrays;
 import java.util.HashSet;
 
 /**
- * Created by Fredrik on 2015-12-30.
+ * Created by Fredrik on 2016-02-13.
  */
-public class ExerciseRecordsContentProvider extends ContentProvider {
+public class ExerciseContentProvider extends ContentProvider {
 
-    private ExerciseRecordsDatabaseHelper database;
+    private ExerciseDatabaseHelper database;
 
     // used for the UriMacher
-    private static final int EXERCISERECORDS = 10;
-    private static final int EXERCISE_RECORDS_ID = 20;
+    private static final int EXERCISE = 10;
+    private static final int EXERCISE_ID = 20;
 
-    private static final String AUTHORITY = "com.fitness.dense.densefitness.database.contentProviderExerciseRecords";
+    private static final String AUTHORITY = "com.fitness.dense.densefitness.database.contentProviderExercise";
 
-    private static final String BASE_PATH = "exerciserecords";
+    private static final String BASE_PATH = "exercise";
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY
             + "/" + BASE_PATH);
 
     public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE
-            + "/exerciserecords";
+            + "/exercise";
     public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE
-            + "/exerciserecords";
+            + "/exercise";
 
     private static final UriMatcher sURIMatcher = new UriMatcher(UriMatcher.NO_MATCH);
     static {
-        sURIMatcher.addURI(AUTHORITY, BASE_PATH, EXERCISERECORDS);
-        sURIMatcher.addURI(AUTHORITY, BASE_PATH + "/#", EXERCISE_RECORDS_ID);
+        sURIMatcher.addURI(AUTHORITY, BASE_PATH, EXERCISE);
+        sURIMatcher.addURI(AUTHORITY, BASE_PATH + "/#", EXERCISE_ID);
     }
 
     @Override
     public boolean onCreate() {
-        database = new ExerciseRecordsDatabaseHelper(getContext());
+        database = new ExerciseDatabaseHelper(getContext());
         return false;
     }
 
@@ -59,15 +59,15 @@ public class ExerciseRecordsContentProvider extends ContentProvider {
         checkColumns(projection);
 
         // Set the table
-        queryBuilder.setTables(ExerciseRecordsTable.TABLE_EXERCISE_RECORDS);
+        queryBuilder.setTables(ExerciseTable.TABLE_EXERCISE);
 
         int uriType = sURIMatcher.match(uri);
         switch (uriType) {
-            case EXERCISERECORDS:
+            case EXERCISE:
                 break;
-            case EXERCISE_RECORDS_ID:
+            case EXERCISE_ID:
                 // adding the ID to the original query
-                queryBuilder.appendWhere(ExerciseRecordsTable.COLUMN_ID + "="
+                queryBuilder.appendWhere(ExerciseTable.COLUMN_ID + "="
                         + uri.getLastPathSegment());
                 break;
             default:
@@ -93,8 +93,8 @@ public class ExerciseRecordsContentProvider extends ContentProvider {
         int rowsDeleted = 0;
         long id = 0;
         switch (uriType) {
-            case EXERCISERECORDS:
-                id = sqlDB.insert(ExerciseRecordsTable.TABLE_EXERCISE_RECORDS, null, values);
+            case EXERCISE:
+                id = sqlDB.insert(ExerciseTable.TABLE_EXERCISE, null, values);
                 break;
             default:
                 throw new IllegalArgumentException("Unknown URI: " + uri);
@@ -109,21 +109,21 @@ public class ExerciseRecordsContentProvider extends ContentProvider {
         SQLiteDatabase sqlDB = database.getWritableDatabase();
         int rowsDeleted = 0;
         switch (uriType) {
-            case EXERCISERECORDS:
-                rowsDeleted = sqlDB.delete(ExerciseRecordsTable.TABLE_EXERCISE_RECORDS, selection,
+            case EXERCISE:
+                rowsDeleted = sqlDB.delete(ExerciseTable.TABLE_EXERCISE, selection,
                         selectionArgs);
                 break;
-            case EXERCISE_RECORDS_ID:
+            case EXERCISE_ID:
                 String id = uri.getLastPathSegment();
                 if (TextUtils.isEmpty(selection))
                 {
-                    rowsDeleted = sqlDB.delete(ExerciseRecordsTable.TABLE_EXERCISE_RECORDS,
-                            ExerciseRecordsTable.COLUMN_ID + "=" + id, null);
+                    rowsDeleted = sqlDB.delete(ExerciseTable.TABLE_EXERCISE,
+                            ExerciseTable.COLUMN_ID + "=" + id, null);
                 }
                 else
                 {
-                    rowsDeleted = sqlDB.delete(ExerciseRecordsTable.TABLE_EXERCISE_RECORDS,
-                            ExerciseRecordsTable.COLUMN_ID + "=" + id
+                    rowsDeleted = sqlDB.delete(ExerciseTable.TABLE_EXERCISE,
+                            ExerciseTable.COLUMN_ID + "=" + id
                                     + " and " + selection, selectionArgs);
                 }
                 break;
@@ -140,25 +140,25 @@ public class ExerciseRecordsContentProvider extends ContentProvider {
         SQLiteDatabase sqlDB = database.getWritableDatabase();
         int rowsUpdated = 0;
         switch (uriType) {
-            case EXERCISERECORDS:
-                rowsUpdated = sqlDB.update(ExerciseRecordsTable.TABLE_EXERCISE_RECORDS,
+            case EXERCISE:
+                rowsUpdated = sqlDB.update(ExerciseTable.TABLE_EXERCISE,
                         values,
                         selection,
                         selectionArgs);
                 break;
-            case EXERCISE_RECORDS_ID:
+            case EXERCISE_ID:
                 String id = uri.getLastPathSegment();
                 if (TextUtils.isEmpty(selection))
                 {
-                    rowsUpdated = sqlDB.update(ExerciseRecordsTable.TABLE_EXERCISE_RECORDS,
+                    rowsUpdated = sqlDB.update(ExerciseTable.TABLE_EXERCISE,
                             values,
-                            ExerciseRecordsTable.COLUMN_ID + "=" + id, null);
+                            ExerciseTable.COLUMN_ID + "=" + id, null);
                 }
                 else
                 {
-                    rowsUpdated = sqlDB.update(ExerciseRecordsTable.TABLE_EXERCISE_RECORDS,
+                    rowsUpdated = sqlDB.update(ExerciseTable.TABLE_EXERCISE,
                             values,
-                            ExerciseRecordsTable.COLUMN_ID + "=" + id
+                            ExerciseTable.COLUMN_ID + "=" + id
                                     + " and "
                                     + selection,
                             selectionArgs);
@@ -172,11 +172,8 @@ public class ExerciseRecordsContentProvider extends ContentProvider {
     }
 
     private void checkColumns(String[] projection) {
-        String[] available = { ExerciseRecordsTable.COLUMN_ID,
-                ExerciseRecordsTable.COLUMN_FK_EXERCISE_ID,
-                ExerciseRecordsTable.COLUMN_PERSONAL_RECORD_DATE,
-                ExerciseRecordsTable.COLUMN_RECORD_TYPE,
-                ExerciseRecordsTable.COLUMN_RECORD_RESULT };
+        String[] available = { ExerciseTable.COLUMN_ID,
+                ExerciseTable.COLUMN_EXERCISE_NAME};
         if (projection != null) {
             HashSet<String> requestedColumns = new HashSet<String>(Arrays.asList(projection));
             HashSet<String> availableColumns = new HashSet<String>(Arrays.asList(available));

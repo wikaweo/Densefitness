@@ -2,7 +2,6 @@ package com.fitness.dense.densefitness;
 
 
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,8 +12,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.fitness.dense.densefitness.Interfaces.NewWorkoutListener;
+import com.fitness.dense.densefitness.Interfaces.PersonalRecordListener;
 import com.fitness.dense.densefitness.bodymass.BodyMassFragment;
-import com.fitness.dense.densefitness.personalRecords.ExercisesFragment;
 import com.fitness.dense.densefitness.personalRecords.personalRecords.PersonalRecords;
 import com.fitness.dense.densefitness.tabs.SlidingTabLayout;
 import com.fitness.dense.densefitness.workouts.WorkoutsListManager.WorkoutsFragment;
@@ -96,6 +95,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .addSubActionView(btnNewWorkout)
                 .attachTo(actionButton)
                 .build();
+
+        actionMenu.setStateChangeListener(new FloatingActionMenu.MenuStateChangeListener() {
+            @Override
+            public void onMenuOpened(FloatingActionMenu floatingActionMenu) {
+                Fragment fragment = (Fragment) mPagerAdapterControl.instantiateItem(mPager, mPager.getCurrentItem());
+
+                if(fragment instanceof PersonalRecordListener)
+                    ((PersonalRecordListener) fragment).onNewPersonalRecordClick();
+            }
+
+            @Override
+            public void onMenuClosed(FloatingActionMenu floatingActionMenu) {
+
+            }
+        });
     }
 
     @Override
@@ -118,33 +132,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    public void switchContent(int position) {
-        Bundle args = new Bundle();
-        args.putInt("position", position);
-
-        ExercisesFragment exercisesFragment = new ExercisesFragment();
-        exercisesFragment.setArguments(args);
-
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentLayout, exercisesFragment);
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-
-        /*try
-        {
-            List<Fragment> fragments = new Vector<Fragment>();
-
-            fragments.add(Fragment.instantiate(this, ExercisesFragment.class.getName()));
-
-            //mPager = (ViewPager) findViewById(R.id.pager);
-            mPager.setAdapter(new PagerAdapterControl(this, getSupportFragmentManager(), fragments));
-        }
-        catch (Exception ex)
-        {
-
-        }*/
     }
 
     @Override
