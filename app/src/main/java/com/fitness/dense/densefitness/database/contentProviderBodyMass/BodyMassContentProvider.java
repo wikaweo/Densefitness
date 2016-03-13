@@ -182,8 +182,7 @@ public class BodyMassContentProvider extends ContentProvider {
 
     private void checkColumns(String[] projection) {
         String[] available = { BodyMassTable.COLUMN_DATE,
-                BodyMassTable.COLUMN_WEIGHT, BodyMassTable.COLUMN_FAT,
-                BodyMassTable.COLUMN_MUSCLE_MASS, BodyMassTable.COLUMN_ID };
+                BodyMassTable.COLUMN_WEIGHT, BodyMassTable.COLUMN_FAT, BodyMassTable.COLUMN_ID };
         if (projection != null) {
             HashSet<String> requestedColumns = new HashSet<String>(Arrays.asList(projection));
             HashSet<String> availableColumns = new HashSet<String>(Arrays.asList(available));

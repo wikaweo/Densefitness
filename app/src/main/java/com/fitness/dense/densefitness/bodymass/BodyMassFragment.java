@@ -51,7 +51,6 @@ public class BodyMassFragment extends DialogFragment implements ActionMode.Callb
     private TextView mDate;
     private EditText mWeight;
     private EditText mFat;
-    private EditText mMuscleMass;
     private Button buttonSave;
 
     private ActionMode.Callback mLastCallback;
@@ -130,12 +129,11 @@ public class BodyMassFragment extends DialogFragment implements ActionMode.Callb
                 String date = mDate.getText().toString();
                 String weight = mWeight.getText().toString();
                 String fat = mFat.getText().toString();
-                String muscleMass = mMuscleMass.getText().toString();
 
-                boolean isInputValid = validateInput(date.toString(), weight.toString(), fat.toString(), muscleMass.toString());
+                boolean isInputValid = validateInput(date, weight, fat);
 
                 if (isInputValid) {
-                    ContentValues values = setContentValues(date, weight, fat, muscleMass);
+                    ContentValues values = setContentValues(date, weight, fat);
 
                     bodyMassUri = getContext().getContentResolver().insert(BodyMassContentProvider.CONTENT_URI, values);
                     tableLayout.removeAllViews();
@@ -152,14 +150,12 @@ public class BodyMassFragment extends DialogFragment implements ActionMode.Callb
         mDate.setText("");
         mWeight.setText("");
         mFat.setText("");
-        mMuscleMass.setText("");
     }
 
     private void SetTextBoxes(View rootView) {
         mDate = (TextView) rootView.findViewById(R.id.edDate);
         mWeight = (EditText) rootView.findViewById(R.id.edWeight);
         mFat = (EditText) rootView.findViewById(R.id.edFat);
-        mMuscleMass = (EditText) rootView.findViewById(R.id.edMuscleMass);
 
         mDate.setInputType(InputType.TYPE_NULL);
         mDate.requestFocus();
@@ -177,9 +173,8 @@ public class BodyMassFragment extends DialogFragment implements ActionMode.Callb
                 String date = cursor.getString(cursor.getColumnIndex("date"));
                 String weight = cursor.getString(cursor.getColumnIndex("weight"));
                 String fat = cursor.getString(cursor.getColumnIndex("fat"));
-                String muscleMass = cursor.getString(cursor.getColumnIndex("muscle_mass"));
 
-                TableRow row = addTableRows(date, weight, fat, muscleMass);
+                TableRow row = addTableRows(date, weight, fat);
                 row.setTag(id);
                 tableLayout.addView(row);
                 counter++;
@@ -190,7 +185,7 @@ public class BodyMassFragment extends DialogFragment implements ActionMode.Callb
     }
 
     @NonNull
-    private TableRow addTableRows(String date, String weight, String fat, String muscleMass) {
+    private TableRow addTableRows(String date, String weight, String fat) {
         TableRow row = new TableRow(context);
         row.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT));
         row.setBackgroundResource(R.drawable.row_border);
@@ -215,7 +210,7 @@ public class BodyMassFragment extends DialogFragment implements ActionMode.Callb
                         }
                     }
                     if (checkedItems.isEmpty()) {
-                        if(actionMode != null)
+                        if (actionMode != null)
                             actionMode.finish();
                     }
                 }
@@ -223,9 +218,7 @@ public class BodyMassFragment extends DialogFragment implements ActionMode.Callb
             }
         });
 
-        row.addView(checkBox);
-
-        String[] colText = {date, weight, fat, muscleMass};
+        String[] colText = {date, weight, fat};
 
         for (String text : colText) {
             TextView textView = new TextView(getActivity());
@@ -237,6 +230,8 @@ public class BodyMassFragment extends DialogFragment implements ActionMode.Callb
             textView.setText(text);
             row.addView(textView);
         }
+        row.addView(checkBox);
+
         return row;
     }
 
@@ -249,7 +244,7 @@ public class BodyMassFragment extends DialogFragment implements ActionMode.Callb
 
         rowHeader.setBackgroundResource(R.drawable.row_border);
 
-        String[] headerText={" ", "Date", "Weight(kg)", "Fat(%)", "Muscles(%)"};
+        String[] headerText={"Date", "Weight(kg)", "Fat(%)", " "};
         for(String c:headerText) {
             TextView textView = new TextView(getActivity());
             textView.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.WRAP_CONTENT,
@@ -279,17 +274,16 @@ public class BodyMassFragment extends DialogFragment implements ActionMode.Callb
     }
 
     @NonNull
-    private ContentValues setContentValues(String date, String weight, String fat, String muscleMass) {
+    private ContentValues setContentValues(String date, String weight, String fat) {
         ContentValues values = new ContentValues();
         values.put(BodyMassTable.COLUMN_DATE, date);
         values.put(BodyMassTable.COLUMN_WEIGHT, weight);
         values.put(BodyMassTable.COLUMN_FAT, fat);
-        values.put(BodyMassTable.COLUMN_MUSCLE_MASS, muscleMass);
         return values;
     }
 
-    public boolean validateInput(String date, String weight, String fat, String muscleMass){
-        if(date.isEmpty() || weight.isEmpty() || fat.isEmpty() || muscleMass.isEmpty())
+    public boolean validateInput(String date, String weight, String fat){
+        if(date.isEmpty() || weight.isEmpty() || fat.isEmpty())
         {
             showErrorDialog();
             return false;

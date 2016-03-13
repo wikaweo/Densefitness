@@ -6,7 +6,8 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal">
 
         <TextView
             android:layout_width="95dp"
@@ -17,12 +18,12 @@
             android:hint="Date" />
 
         <EditText
-            android:layout_width="50dp"
+            android:layout_width="70dp"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
             android:ems="10"
             android:id="@+id/edWeight"
-            android:hint="Wgt" />
+            android:hint="Weight" />
 
         <EditText
             android:layout_width="50dp"
@@ -32,30 +33,24 @@
             android:id="@+id/edFat"
             android:hint="Fat" />
 
-        <EditText
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:inputType="numberDecimal"
-            android:ems="10"
-            android:id="@+id/edMuscleMass"
-            android:hint="Mus" />
-
         <Button
             android:layout_width="88dp"
             android:layout_height="36dp"
-            android:minWidth="88dp"
+            android:minWidth="60dp"
             android:text="Save"
-            android:id="@+id/btnSave" />
+            android:id="@+id/btnSave"
+            android:paddingRight="10dp"/>
 
 
     </LinearLayout>
 
     <TableLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:paddingTop="@dimen/activity_vertical_margin"
         android:stretchColumns="*"
-        android:id= "@+id/tlBodyMassHistory"></TableLayout>
+        android:id= "@+id/tlBodyMassHistory"
+        android:paddingRight="10dp"></TableLayout>
 
 </LinearLayout>

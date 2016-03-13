@@ -45,7 +45,7 @@ public class PagerAdapterControl extends FragmentStatePagerAdapter {
                 PageTitle = "Workouts";
                 break;
             case 1:
-                PageTitle = "Personal records";
+                PageTitle = "Records";
                 break;
             case 2:
                 PageTitle = "Body mass";

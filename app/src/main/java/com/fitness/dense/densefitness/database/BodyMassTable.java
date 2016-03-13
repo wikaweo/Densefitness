@@ -14,7 +14,6 @@ public class BodyMassTable {
     public static final String COLUMN_DATE = "date";
     public static final String COLUMN_WEIGHT = "weight";
     public static final String COLUMN_FAT = "fat";
-    public static final String COLUMN_MUSCLE_MASS = "muscle_mass";
 
     // Database creation SQL statement
     private static final String DATABASE_CREATE = "create table "
@@ -23,8 +22,7 @@ public class BodyMassTable {
             + COLUMN_ID + " integer primary key autoincrement, "
             + COLUMN_DATE + " real, "
             + COLUMN_WEIGHT + " real, "
-            + COLUMN_FAT + " real, "
-            + COLUMN_MUSCLE_MASS + " real"
+            + COLUMN_FAT + " real"
             + ");";
 
     public static void onCreate(SQLiteDatabase database) {
