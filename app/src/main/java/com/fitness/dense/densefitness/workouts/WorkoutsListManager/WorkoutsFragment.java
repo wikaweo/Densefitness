@@ -91,14 +91,12 @@ public class WorkoutsFragment extends Fragment implements NewWorkoutListener, Ac
 
     @Override
     public void onNewWorkoutClick() {
-        Toast.makeText(getActivity(), "New workout", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), WorkoutDetails.class);
         startActivity(intent);
     }
 
     @Override
     public void onHeroWorkoutClick() {
-        Toast.makeText(getActivity(), "Hero workout", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getActivity(), Benchmarks.class);
         startActivity(intent);
     }

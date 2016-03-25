@@ -15,4 +15,11 @@
     <string name="title_activity_workout_details">WorkoutDetails</string>
     <string name="title_activity_benchmarks">Benchmarks</string>
     <string name="title_activity_exercises">Exercises</string>
+    <string name="title_activity_personal_records_details">PersonalRecordsDetails</string>
+    <string-array name="typeChoices">
+        <item>Weight</item>
+        <item>Reps</item>
+        <item>Distance</item>
+        <item>Time</item>
+    </string-array>
 </resources>

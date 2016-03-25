@@ -51,6 +51,10 @@
             android:name=".personalRecords.Exercises"
             android:label="@string/title_activity_exercises" >
         </activity>
+        <activity
+            android:name=".personalRecords.PersonalRecordsDetails"
+            android:label="@string/title_activity_personal_records_details" >
+        </activity>
     </application>
 
 </manifest>

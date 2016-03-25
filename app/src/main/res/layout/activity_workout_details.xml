@@ -51,6 +51,7 @@
                 android:ems="10"
                 android:paddingTop="8dp"
                 android:hint="Description"
+                android:lines="4"
                 android:inputType="textMultiLine" />
 
         </android.support.design.widget.TextInputLayout>

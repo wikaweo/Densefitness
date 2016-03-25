@@ -41,7 +41,6 @@
             android:id="@+id/btnSave"
             android:paddingRight="10dp"/>
 
-
     </LinearLayout>
 
     <TableLayout

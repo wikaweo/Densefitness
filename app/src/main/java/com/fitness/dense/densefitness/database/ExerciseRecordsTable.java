@@ -16,6 +16,7 @@ public class ExerciseRecordsTable {
     public static final String COLUMN_PERSONAL_RECORD_DATE = "personal_record_date";
     public static final String COLUMN_RECORD_TYPE = "record_type";
     public static final String COLUMN_RECORD_RESULT = "record_result";
+    public static final String COLUMN_RECORD_WEIGHT = "record_weight";
 
     // Database creation SQL statement
     private static final String DATABASE_CREATE = "create table "
@@ -26,7 +27,8 @@ public class ExerciseRecordsTable {
             //+ "FOREIGN KEY(" + COLUMN_FK_EXERCISE_ID + ") REFERENCES " + TABLE_EXERCISE + "(exercise_id), "
             + COLUMN_PERSONAL_RECORD_DATE + " integer, "
             + COLUMN_RECORD_TYPE + " integer, "
-            + COLUMN_RECORD_RESULT + " integer"
+            + COLUMN_RECORD_RESULT + " integer, "
+            + COLUMN_RECORD_WEIGHT + " integer"
             + ");";
 
     public static void onCreate(SQLiteDatabase database) {

@@ -1,6 +1,8 @@
 package com.fitness.dense.densefitness.personalRecords;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -29,7 +31,14 @@ public class ExercisesViewHolder extends RecyclerView.ViewHolder implements View
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(exerciseTitle.getContext(), " Item clicked at " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(exerciseTitle.getContext(), " Item clicked at " + getAdapterPosition(), Toast.LENGTH_SHORT).show();
+        String exercise = String.valueOf(exerciseTitle.getText());
+
+        Intent intent = new Intent(context, PersonalRecordsDetails.class);
+        Bundle bundle = new Bundle();
+        bundle.putString("exercise", exercise);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
     }
 
     @Override

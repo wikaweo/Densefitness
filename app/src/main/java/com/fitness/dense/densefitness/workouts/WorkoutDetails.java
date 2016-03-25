@@ -66,7 +66,16 @@ public class WorkoutDetails extends AppCompatActivity {
                 newFragment.show(getSupportFragmentManager(), "timePicker");
             }
         });
+    }
 
+    private void InitiateInputFields() {
+        mTitle = (EditText) findViewById(R.id.etWorkoutTitle);
+        mDate = (TextView) findViewById(R.id.edWorkoutDate);
+        mDescription = (EditText) findViewById(R.id.etWorkoutDescription);
+        mTime = (EditText) findViewById(R.id.etWorkoutTime);
+        mRounds = (EditText) findViewById(R.id.etWorkoutRounds);
+        mReps = (EditText) findViewById(R.id.etWorkoutReps);
+        mWeight = (EditText) findViewById(R.id.etWorkoutWeight);
     }
 
     public void onSaveClick(MenuItem item)
@@ -116,16 +125,6 @@ public class WorkoutDetails extends AppCompatActivity {
     public void onCancelClick(MenuItem item)
     {
         ClearTextBoxes();
-    }
-
-    private void InitiateInputFields() {
-        mTitle = (EditText) findViewById(R.id.etWorkoutTitle);
-        mDate = (TextView) findViewById(R.id.edWorkoutDate);
-        mDescription = (EditText) findViewById(R.id.etWorkoutDescription);
-        mTime = (EditText) findViewById(R.id.etWorkoutTime);
-        mRounds = (EditText) findViewById(R.id.etWorkoutRounds);
-        mReps = (EditText) findViewById(R.id.etWorkoutReps);
-        mWeight = (EditText) findViewById(R.id.etWorkoutWeight);
     }
 
     @Override

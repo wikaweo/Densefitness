@@ -176,7 +176,8 @@ public class ExerciseRecordsContentProvider extends ContentProvider {
                 ExerciseRecordsTable.COLUMN_FK_EXERCISE_ID,
                 ExerciseRecordsTable.COLUMN_PERSONAL_RECORD_DATE,
                 ExerciseRecordsTable.COLUMN_RECORD_TYPE,
-                ExerciseRecordsTable.COLUMN_RECORD_RESULT };
+                ExerciseRecordsTable.COLUMN_RECORD_RESULT,
+                ExerciseRecordsTable.COLUMN_RECORD_WEIGHT};
         if (projection != null) {
             HashSet<String> requestedColumns = new HashSet<String>(Arrays.asList(projection));
             HashSet<String> availableColumns = new HashSet<String>(Arrays.asList(available));

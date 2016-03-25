@@ -143,8 +143,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 ((NewWorkoutListener) fragment).onHeroWorkoutClick();
         }
         if(v.getTag().equals(TAG_EXISTING_WORKOUT)){
-            Toast.makeText(this, "existing workout",
-                    Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "existing workout", Toast.LENGTH_SHORT).show();
         }
         if(v.getTag().equals(TAG_NEW_WORKOUT)){
             Fragment fragment = (Fragment) mPagerAdapterControl.instantiateItem(mPager, mPager.getCurrentItem());
