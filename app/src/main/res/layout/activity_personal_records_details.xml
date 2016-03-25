@@ -49,6 +49,21 @@
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/repMaxWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="72dp">
+
+        <Spinner
+            android:id="@+id/spRepMax"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:hint="Type*" />
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
         android:id="@+id/typeOfRecordWrapper"
         android:layout_width="match_parent"
         android:layout_height="72dp">

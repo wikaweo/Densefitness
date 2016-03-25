@@ -22,4 +22,13 @@
         <item>Distance</item>
         <item>Time</item>
     </string-array>
+    <string-array name="repMax">
+        <item>1 RM</item>
+        <item>2 RM</item>
+        <item>3 RM</item>
+        <item>4 RM</item>
+        <item>5 RM</item>
+        <item>10 RM</item>
+        <item>20 RM</item>
+    </string-array>
 </resources>

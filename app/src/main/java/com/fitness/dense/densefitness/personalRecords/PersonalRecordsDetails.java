@@ -32,6 +32,7 @@ import java.util.Calendar;
 public class PersonalRecordsDetails extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private Spinner mTypeChoices;
+    private Spinner mRepMax;
     private EditText mExercise;
     private TextView mDate;
     private EditText mTypeOfRecord;
@@ -39,6 +40,7 @@ public class PersonalRecordsDetails extends AppCompatActivity implements Adapter
     private EditText mNotes;
     private TextInputLayout mWeightWrapper;
     private TextInputLayout mTypeOfRecordWrapper;
+    private TextInputLayout mRepMaxWrapper;
 
     private Uri personalRecordsUri;
 
@@ -55,9 +57,13 @@ public class PersonalRecordsDetails extends AppCompatActivity implements Adapter
 
         InitiateInputFields();
 
-        ArrayAdapter adapter = ArrayAdapter.createFromResource(this, R.array.typeChoices, android.R.layout.simple_spinner_item);
-        mTypeChoices.setAdapter(adapter);
+        ArrayAdapter typeChoicesadapter = ArrayAdapter.createFromResource(this, R.array.typeChoices, android.R.layout.simple_spinner_item);
+        mTypeChoices.setAdapter(typeChoicesadapter);
         mTypeChoices.setOnItemSelectedListener(this);
+
+        ArrayAdapter repMaxAdapter = ArrayAdapter.createFromResource(this, R.array.repMax, android.R.layout.simple_spinner_item);
+        mRepMax.setAdapter(repMaxAdapter);
+        mRepMax.setOnItemSelectedListener(this);
 
         if(exercise != null)
             mExercise.setText(exercise);
@@ -75,6 +81,8 @@ public class PersonalRecordsDetails extends AppCompatActivity implements Adapter
     private void InitiateInputFields() {
         mExercise = (EditText) findViewById(R.id.etExerciseForPersonalRecords);
         mTypeChoices = (Spinner) findViewById(R.id.spTypeOfRecordChoice);
+        mRepMax = (Spinner) findViewById(R.id.spRepMax);
+        mRepMaxWrapper = (TextInputLayout) findViewById(R.id.repMaxWrapper);
         mTypeOfRecord = (EditText) findViewById(R.id.etTypeOfRecord);
         mWeight = (EditText) findViewById(R.id.etPersonalRecordsWeight);
         mNotes = (EditText) findViewById(R.id.etNotes);
@@ -107,18 +115,34 @@ public class PersonalRecordsDetails extends AppCompatActivity implements Adapter
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        TextView selectedText = (TextView) view;
+        int adapterId = parent.getId();
 
-        SetVisibility(selectedText);
-        SetHint(selectedText);
+        if(adapterId == 2131558518)
+        {
+            TextView selectedText = (TextView) view;
+            SetVisibility(selectedText);
+            SetHint(selectedText);
+        }
+        if(adapterId == 2131558520)
+        {
+
+        }
     }
-
 
     private void SetVisibility(TextView selectedText) {
         if(selectedText.getText().equals("Weight"))
+        {
+            mRepMaxWrapper.setVisibility(View.VISIBLE);
             mWeightWrapper.setVisibility(View.VISIBLE);
+            mTypeOfRecordWrapper.setVisibility(View.GONE);
+        }
         else
+        {
+            mRepMaxWrapper.setVisibility(View.GONE);
             mWeightWrapper.setVisibility(View.GONE);
+            mTypeOfRecordWrapper.setVisibility(View.VISIBLE);
+        }
+
     }
 
     private void SetHint(TextView selectedText) {
@@ -145,10 +169,18 @@ public class PersonalRecordsDetails extends AppCompatActivity implements Adapter
     {
         String exercise = mExercise.getText().toString();
         String date = mDate.getText().toString();
-        String typeChoice = mTypeChoices.getSelectedItem().toString();
         String typeRecordResult = mTypeOfRecord.getText().toString();
         String weight = mWeight.getText().toString();
         //String notes = mNotes.getText().toString();
+
+        String typeChoice;
+        if(mRepMaxWrapper.getVisibility() == View.VISIBLE)
+        {
+            String repMax = mRepMax.getSelectedItem().toString();
+            typeChoice = repMax.replace(" ", "").replace("RM", "");
+        }
+        else
+            typeChoice = mTypeChoices.getSelectedItem().toString();
 
         boolean isInputValid = validateInput(exercise, date);
 
