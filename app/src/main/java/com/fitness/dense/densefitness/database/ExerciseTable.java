@@ -26,7 +26,7 @@ public class ExerciseTable {
 
     public static void onCreate(SQLiteDatabase database) {
         database.execSQL(DATABASE_CREATE);
-        database.execSQL("PRAGMA foreign_keys=ON;");
+        //database.execSQL("PRAGMA foreign_keys=ON;");
 
         ArrayList<String> exercises = getAllExercises();
 

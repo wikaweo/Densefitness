@@ -1,6 +1,7 @@
 package com.fitness.dense.densefitness.workouts.Benchmark;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -47,6 +48,7 @@ public class BenchmarkAdapter extends RecyclerView.Adapter<BenchmarkViewHolder> 
     public void onBindViewHolder(final BenchmarkViewHolder holder, int position) {
         Properties current = properties.get(position);
         holder.benchmarkTitle.setText(current.workoutTitle);
+        holder.benchmarkTitle.setTextColor(Color.parseColor("#319b54"));
         holder.benchmarkDescription.setText(current.workoutDescription);
     }
 

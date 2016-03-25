@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.fitness.dense.densefitness.DividerItemDecoration;
 import com.fitness.dense.densefitness.R;
 import com.fitness.dense.densefitness.database.ExerciseRecordsTable;
 import com.fitness.dense.densefitness.database.ExerciseTable;
@@ -31,6 +32,8 @@ public class Exercises extends AppCompatActivity {
         adapter = new ExercisesAdapter(this, getAllExercises());
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        mRecyclerView.setHasFixedSize(true);
     }
 
     @Override

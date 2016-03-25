@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.DialogFragment;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fitness.dense.densefitness.R;
+import com.fitness.dense.densefitness.bodymass.ErrorMessageDialog;
 import com.fitness.dense.densefitness.database.ExerciseRecordsTable;
 import com.fitness.dense.densefitness.database.contentProviderExerciseRecords.ExerciseRecordsContentProvider;
 
@@ -37,6 +39,8 @@ public class PersonalRecordsDetails extends AppCompatActivity implements Adapter
     private EditText mNotes;
     private TextInputLayout mWeightWrapper;
     private TextInputLayout mTypeOfRecordWrapper;
+
+    private Uri personalRecordsUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,32 +145,71 @@ public class PersonalRecordsDetails extends AppCompatActivity implements Adapter
     {
         String exercise = mExercise.getText().toString();
         String date = mDate.getText().toString();
-        String typeChoise = mTypeChoices.getSelectedItem().toString();
-        String typeRecord = mTypeOfRecord.getText().toString();
+        String typeChoice = mTypeChoices.getSelectedItem().toString();
+        String typeRecordResult = mTypeOfRecord.getText().toString();
         String weight = mWeight.getText().toString();
         //String notes = mNotes.getText().toString();
 
-        //boolean isInputValid = validateInput(title, date);
+        boolean isInputValid = validateInput(exercise, date);
 
-        //if (isInputValid) {
-            ContentValues values = setContentValues(exercise, date, typeChoise, typeRecord, weight);
-            getContentResolver().insert(ExerciseRecordsContentProvider.CONTENT_URI, values);
+        if (isInputValid) {
+            ContentValues values = setContentValues(exercise, date, typeChoice, typeRecordResult, weight);
+            try
+            {
+                personalRecordsUri = getContentResolver().insert(ExerciseRecordsContentProvider.CONTENT_URI, values);
+            }
+            catch (Exception ex)
+            {
+                Exception exception = ex;
+            }
 
             Toast.makeText(this, "Record added successfully", Toast.LENGTH_SHORT).show();
             ClearTextBoxes();
-        //}
+        }
     }
 
     @NonNull
-    private ContentValues setContentValues(String exercise, String date, String typeChoise, String typeRecord, String weight) {
+    private ContentValues setContentValues(String exercise, String date, String typeChoise, String typeRecordResult, String weight) {
+        String typeChoiceValue = GetTypeRecordValue(typeChoise);
+
         ContentValues values = new ContentValues();
-        values.put(ExerciseRecordsTable.COLUMN_FK_EXERCISE_ID, exercise);
+        values.put(ExerciseRecordsTable.COLUMN_RECORD_EXERCISE_NAME, exercise);
         values.put(ExerciseRecordsTable.COLUMN_PERSONAL_RECORD_DATE, date);
-        values.put(ExerciseRecordsTable.COLUMN_RECORD_TYPE, typeChoise);
-        values.put(ExerciseRecordsTable.COLUMN_RECORD_RESULT, typeRecord);
+        values.put(ExerciseRecordsTable.COLUMN_RECORD_TYPE, typeChoiceValue);
+        values.put(ExerciseRecordsTable.COLUMN_RECORD_RESULT, typeRecordResult);
         values.put(ExerciseRecordsTable.COLUMN_RECORD_WEIGHT, weight);
         return values;
     }
+
+    private String GetTypeRecordValue(String typeChoise) {
+        if(typeChoise.equals("Weight"))
+            return "1";
+        if(typeChoise.equals("Reps"))
+            return "2";
+        if(typeChoise.equals("Distance"))
+            return "3";
+        if(typeChoise.equals("Time"))
+            return "4";
+        return "1";
+    }
+
+    public boolean validateInput(String exercise, String date){
+        if(exercise.isEmpty() || date.isEmpty())
+        {
+            showErrorDialog();
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    private void showErrorDialog() {
+        ErrorMessageDialog errorMessageDialog = new ErrorMessageDialog();
+        errorMessageDialog.show(getSupportFragmentManager(), "Error Message");
+    }
+
 
     public void onCancelClick(MenuItem item)
     {

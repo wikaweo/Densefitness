@@ -5,11 +5,23 @@ package com.fitness.dense.densefitness.personalRecords.personalRecords;
  */
 public class PersonalRecordsRow {
     public int iconId;
-    public String title;
+    public String exercise;
+    public String date;
+    public String recordResult;
 
-    public void setTitle(String exercise)
+    public void setExercise(String exercise)
     {
-        this.title = exercise;
+        this.exercise = exercise;
+    }
+
+    public void setDate(String date)
+    {
+        this.date = date;
+    }
+
+    public void setRecordResult(String recordResult)
+    {
+        this.recordResult = recordResult;
     }
 
     public void setImage(int exerciseImage)

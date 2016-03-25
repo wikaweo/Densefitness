@@ -60,20 +60,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mTabs.setViewPager(mPager);
 
         ImageView imageview = new ImageView(this);
-        imageview.setImageResource(R.drawable.ic_plus);
+        imageview.setImageResource(R.drawable.ic_big_add_black);
 
         FloatingActionButton actionButton = new FloatingActionButton.Builder(this)
                 .setContentView(imageview)
                 .build();
 
         ImageView iconHeroWorkouts = new ImageView(this);
-        iconHeroWorkouts.setImageResource(R.drawable.ic_star);
+        iconHeroWorkouts.setImageResource(R.drawable.ic_black_star);
 
         ImageView iconExistingWorkout = new ImageView(this);
-        iconExistingWorkout.setImageResource(R.drawable.ic_plus_box);
+        iconExistingWorkout.setImageResource(R.drawable.ic_dumbell);
 
         ImageView iconNewWorkout = new ImageView(this);
-        iconNewWorkout.setImageResource(R.drawable.ic_plus_circle);
+        iconNewWorkout.setImageResource(R.drawable.ic_add_black);
 
         SubActionButton.Builder itemBuilder = new SubActionButton.Builder(this);
 

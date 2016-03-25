@@ -12,7 +12,7 @@ public class ExerciseRecordsTable {
     // Database table
     public static final String TABLE_EXERCISE_RECORDS = "exercise_records";
     public static final String COLUMN_ID = "exercise_records_id";
-    public static final String COLUMN_FK_EXERCISE_ID = "fk_exercise_id";
+    public static final String COLUMN_RECORD_EXERCISE_NAME = "exercise_record_name";
     public static final String COLUMN_PERSONAL_RECORD_DATE = "personal_record_date";
     public static final String COLUMN_RECORD_TYPE = "record_type";
     public static final String COLUMN_RECORD_RESULT = "record_result";
@@ -23,7 +23,7 @@ public class ExerciseRecordsTable {
             + TABLE_EXERCISE_RECORDS
             + "("
             + COLUMN_ID + " integer primary key autoincrement, "
-            + COLUMN_FK_EXERCISE_ID + " integer, "
+            + COLUMN_RECORD_EXERCISE_NAME + " text, "
             //+ "FOREIGN KEY(" + COLUMN_FK_EXERCISE_ID + ") REFERENCES " + TABLE_EXERCISE + "(exercise_id), "
             + COLUMN_PERSONAL_RECORD_DATE + " integer, "
             + COLUMN_RECORD_TYPE + " integer, "
@@ -32,13 +32,12 @@ public class ExerciseRecordsTable {
             + ");";
 
     public static void onCreate(SQLiteDatabase database) {
-        database.execSQL("PRAGMA foreign_keys=ON;");
+        //database.execSQL("PRAGMA foreign_keys=ON;");
         database.execSQL(DATABASE_CREATE);
         //database.execSQL("insert into " + TABLE_EXERCISE_RECORDS + "(" + COLUMN_EXERCISE_NAME + ") values('WOD')");
     }
 
-    public static void onUpgrade(SQLiteDatabase database, int oldVersion,
-                                 int newVersion) {
+    public static void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
         Log.w(WorkoutTable.class.getName(), "Upgrading database from version "
                 + oldVersion + " to " + newVersion
                 + ", which will destroy all old data");

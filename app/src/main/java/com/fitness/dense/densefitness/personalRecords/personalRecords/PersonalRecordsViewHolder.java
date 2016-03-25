@@ -17,15 +17,19 @@ public class PersonalRecordsViewHolder extends RecyclerView.ViewHolder implement
     private Context context;
     private Bundle mBundle;
 
-    public final TextView muscleTitle;
-    public final ImageView muscleImage;
+    public final TextView exercise;
+    public final TextView date;
+    public final TextView record;
+    //public final ImageView muscleImage;
 
     public PersonalRecordsViewHolder(View itemView, Context context) {
         super(itemView);
         this.context = context;
-        muscleTitle = (TextView) itemView.findViewById(R.id.exercisePersonalRecordText);
-        muscleImage = (ImageView) itemView.findViewById(R.id.personalRecordImg);
-        muscleTitle.setOnClickListener(this);
+        exercise = (TextView) itemView.findViewById(R.id.exercisePersonalRecordText);
+        date = (TextView) itemView.findViewById(R.id.recordDate);
+        record = (TextView) itemView.findViewById(R.id.recordValue);
+        //muscleImage = (ImageView) itemView.findViewById(R.id.personalRecordImg);
+        exercise.setOnClickListener(this);
     }
 
     @Override

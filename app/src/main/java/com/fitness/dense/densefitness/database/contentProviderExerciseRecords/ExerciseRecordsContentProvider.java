@@ -173,7 +173,7 @@ public class ExerciseRecordsContentProvider extends ContentProvider {
 
     private void checkColumns(String[] projection) {
         String[] available = { ExerciseRecordsTable.COLUMN_ID,
-                ExerciseRecordsTable.COLUMN_FK_EXERCISE_ID,
+                ExerciseRecordsTable.COLUMN_RECORD_EXERCISE_NAME,
                 ExerciseRecordsTable.COLUMN_PERSONAL_RECORD_DATE,
                 ExerciseRecordsTable.COLUMN_RECORD_TYPE,
                 ExerciseRecordsTable.COLUMN_RECORD_RESULT,

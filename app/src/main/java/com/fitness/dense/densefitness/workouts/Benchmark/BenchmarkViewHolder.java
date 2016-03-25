@@ -27,7 +27,7 @@ public class BenchmarkViewHolder extends RecyclerView.ViewHolder implements View
         benchmarkTitle = (TextView) itemView.findViewById(R.id.benchmarkTitle);
         benchmarkDescription = (TextView) itemView.findViewById(R.id.benchmarkDescription);
 
-        benchmarkTitle.setOnClickListener(this);
+        itemView.setOnClickListener(this);
     }
 
     @Override

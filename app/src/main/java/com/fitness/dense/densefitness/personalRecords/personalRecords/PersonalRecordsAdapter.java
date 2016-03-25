@@ -1,6 +1,7 @@
 package com.fitness.dense.densefitness.personalRecords.personalRecords;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,7 +36,10 @@ public class PersonalRecordsAdapter extends RecyclerView.Adapter<PersonalRecords
     @Override
     public void onBindViewHolder(PersonalRecordsViewHolder holder, int position) {
         PersonalRecordsRow current = personalRecordsRows.get(position);
-        holder.muscleTitle.setText(current.title);
+        holder.exercise.setText(current.exercise);
+        holder.exercise.setTextColor(Color.parseColor("#319b54"));
+        holder.date.setText(current.date);
+        holder.record.setText(current.recordResult);
         //holder.muscleImage.setImage(current.iconId);
     }
 

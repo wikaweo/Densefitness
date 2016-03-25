@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.fitness.dense.densefitness.DividerItemDecoration;
 import com.fitness.dense.densefitness.Interfaces.WorkoutListener;
 import com.fitness.dense.densefitness.Interfaces.NewWorkoutListener;
 import com.fitness.dense.densefitness.MainActivity;
@@ -62,6 +63,8 @@ public class WorkoutsFragment extends Fragment implements NewWorkoutListener, Ac
         adapter = new WorkoutsAdapter(getActivity(), getAllWorkouts(), this);
         mRecyclerView.setAdapter(adapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(context, LinearLayoutManager.VERTICAL));
+        mRecyclerView.setHasFixedSize(true);
 
         return rootView;
     }

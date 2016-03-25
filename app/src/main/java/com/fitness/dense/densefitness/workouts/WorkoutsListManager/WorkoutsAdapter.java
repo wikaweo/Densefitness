@@ -1,6 +1,7 @@
 package com.fitness.dense.densefitness.workouts.WorkoutsListManager;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
@@ -59,6 +60,7 @@ public class WorkoutsAdapter extends RecyclerView.Adapter<WorkoutsViewHolder> im
     public void onBindViewHolder(final WorkoutsViewHolder holder, int position) {
         Information current = data.get(position);
         holder.workoutTitle.setText(current.title);
+        holder.workoutTitle.setTextColor(Color.parseColor("#319b54"));
         holder.workoutDescription.setText(current.description);
         holder.workoutDate.setText(current.date);
         holder.cbWorkout.setTag(current.workoutId);
